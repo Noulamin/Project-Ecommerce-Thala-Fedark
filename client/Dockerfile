@@ -1,9 +1,9 @@
 # base of image
 FROM node:16.17.1
 
-WORKDIR /frontend
+WORKDIR /client
 
-COPY package.json /frontend/ 
+COPY package.json /client/ 
 RUN npm install
 
 COPY . .
