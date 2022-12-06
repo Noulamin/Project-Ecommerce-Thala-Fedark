@@ -1,18 +1,18 @@
-// const { sequelize, Sequelize } = require(".");
+const { sequelize, Sequelize } = require(".");
 
-// module.exports = (sequelize, Sequelize) => {
-//     const role = sequelize.define('roles', {
-//         id_role : {
-//             type: Sequelize.INTEGER,
-//             autoIncrement: true,
-//             primaryKey: true
-//         },
-//         role : {
-//             type : Sequelize.STRING,
-//             defaultValue: "client",
-//         }
-//     })
+module.exports = (sequelize, Sequelize) => {
+    const role = sequelize.define('roles', {
+        id_role : {
+            type: Sequelize.INTEGER,
+            autoIncrement: true,
+            primaryKey: true
+        },
+        role : {
+            type : Sequelize.STRING,
+            defaultValue: "client",
+        }
+    })
 
 
-//     return role;
-// }
+    return role;
+}

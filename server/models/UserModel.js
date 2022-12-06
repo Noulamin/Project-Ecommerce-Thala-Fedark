@@ -33,10 +33,7 @@ module.exports = (sequelize, Sequelize) => {
             type : Sequelize.BOOLEAN,
             defaultValue : false
         },
-        role : {
-            type : Sequelize.ENUM('client', 'manager'),
-
-        }
+        
     })
     return users;
 }
