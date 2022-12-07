@@ -2,7 +2,8 @@ const db = require('../Models')
 const bcrypt = require('bcryptjs');
 const crypto = require('crypto');
 const asyncHandler = require('express-async-handler')
-// const sendEmail = require('../Utils/sendEmail');
+const sendEmail = require('../Utils/sendEmail');
+const { where } = require('sequelize');
 // const genToken = require('../Utils/generateToken');
 // const cookie = require('cookie-parser')
 
@@ -36,7 +37,7 @@ const login = (req, res) => {
     }
 
     const emailExist = await UserModel.findOne({ where: { email } })
-    console.log(emailExist);
+    
     // if (emailExist) {
     //     res.status(400)
     //     throw new Error('Opps!! Email has been already taken')
@@ -59,7 +60,17 @@ const login = (req, res) => {
     }
 
     const user = await UserModel.create(data)
-    res.send('user success')
+    
+    const url = `<h2 >Please click Her For validate Your Email <a href="http://localhost:8080/api/auth/verifierEmail/${data.ValidateToken}">validation</a></h2>`
+    const subject = 'Email Validation'
+    sendEmail(data.email, data.ValidateToken, subject, url)
+
+    if (user) {
+        // res.status(201).send('user created successufly')
+        res.status(201).json({ user })
+    } else {
+        throw new Error('samthing is wrong')
+    }
 })
 
 
@@ -83,5 +94,25 @@ const login = (req, res) => {
 }
 
 
+/**
+ * methode => get
+ * url => api/auth/verifierEmail/:token
+ * access => public
+ */
 
-module.exports = {login, register, forgetPassword, resetPassword} 
+const verifierEmail = asyncHandler( async (req, res) => {
+    const token = req.params.token
+    const user = await UserModel.findOne({ where: { ValidateToken: token } })
+
+    if (user) {
+        user.isVerified = true
+        user.ValidateToken = null
+        await user.save()
+        res.status(201).send('Validation Saccssefuly')
+    }else {
+        throw new Error('somthing is wrong')
+    }
+})
+
+
+module.exports = {login, register, forgetPassword, resetPassword, verifierEmail} 
