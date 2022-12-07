@@ -13,7 +13,7 @@ db.sequelize.sync()
     console.log('Base de données connecté');
 })
 .catch((err) => {
-    console.log(err);
+    console.log(err); 
 })
 
 
