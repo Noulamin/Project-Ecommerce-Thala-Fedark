@@ -26,3 +26,8 @@ app.listen(port, (err) => {
         console.log(err);
     }
 })
+
+
+const authRouter = require('./Routes/AuthRoutes')
+
+app.use('/api/auth', authRouter)
