@@ -7,17 +7,18 @@ module.exports = (sequelize, Sequelize) => {
             autoIncrement: true,
             primaryKey: true
         },
-        promotion : {
+        code_promo : {
             type : Sequelize.STRING,
+            allowNull: false,
+        },
+        pourcentage_promo : {
+            type: Sequelize.INTEGER,
             allowNull: false,
         },
         date_expiration : {
             type : Sequelize.DATE,
             allowNull: false,
-        }
-
-
+        }   
     })
-
     return codePromos;
 }

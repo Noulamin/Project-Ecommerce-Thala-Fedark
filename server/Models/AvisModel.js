@@ -1,19 +1,18 @@
 const { sequelize, Sequelize } = require(".");
 
 module.exports = (sequelize, Sequelize) => {
-    const comment = sequelize.define('comments', {
-        id_comment : {
+    const avis = sequelize.define('avis', {
+        id_avis : {
             type: Sequelize.INTEGER,
             autoIncrement: true,
             primaryKey: true
         },
-        comment : {
-            type : Sequelize.STRING,
+        avis : {
+            type : Sequelize.INTEGER,
             allowNull: false,
         }
 
-
+        // # id_prod => foreign key
     })
-
-    return comment;
+    return avis;
 }

@@ -7,25 +7,27 @@ module.exports = (sequelize, Sequelize) => {
             autoIncrement: true,
             primaryKey: true
         },
-        title : {
+        title_produit : {
             type : Sequelize.STRING
         },
-        image : {
+        image_produit : {
             type : Sequelize.STRING
         },
-        description : {
+        description_produit : {
             type : Sequelize.STRING
         },
-        prix : {
+        prix_produit  : {
+            type : Sequelize.INTEGER
+        },
+        stock_produit  : {
             type : Sequelize.STRING
         },
-        stock : {
-            type : Sequelize.STRING
+        promotion_produit : {
+            type : Sequelize.BOOLEAN
         },
-        promotion : {
-            type : Sequelize.STRING
+        pourcentage_produit : {
+            type : Sequelize.INTEGER
         }
-
         // #id_categorie => foreign key
     })
 

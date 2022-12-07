@@ -4,7 +4,7 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-const db = require('./models')
+const db = require('./Models')
 
 db.sequelize.sync()
 
@@ -22,7 +22,7 @@ app.use('/api/auth', authRouter)
 
 
 
-const port = process.env.PORT || 8081
+const port = process.env.PORT || 3001
 
 app.listen(port, (err) => {
     if(!err){
