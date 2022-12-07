@@ -33,6 +33,19 @@ module.exports = (sequelize, Sequelize) => {
             type : Sequelize.BOOLEAN,
             defaultValue : false
         },
+        role: {
+            type: Sequelize.STRING,
+            allowNull: false,
+            defaultValue: 'client',
+            validate: {
+              roleValidator: (value) => {
+                const roles = ['client', 'manager'];
+                if (!roles.includes(value)) {
+                  throw new Error('not a valid role');
+                }
+              },
+            },
+          },
         
     })
     return users;
