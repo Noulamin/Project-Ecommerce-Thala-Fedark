@@ -3,8 +3,7 @@ const bcrypt = require('bcryptjs');
 const crypto = require('crypto');
 const asyncHandler = require('express-async-handler')
 const sendEmail = require('../Utils/sendEmail');
-const { where } = require('sequelize');
-// const genToken = require('../Utils/generateToken');
+const genToken = require('../Utils/generateToken');
 // const cookie = require('cookie-parser')
 
 
@@ -16,10 +15,42 @@ const UserModel = db.UserModel;
  * url => api/auth/login
  * access => public
  */
-const login = (req, res) => {
-    res.status(200).send('this login page')
-}
+ const login = asyncHandler(async (req, res) => {
+    const { email, password } = req.body;
+    if (!email || !password) {
+        res.status(400).send('please add all fildes')
+    }
 
+    const user = await UserModel.findOne({ where: { email } })
+    console.log(user)
+    const compPassword = await bcrypt.compare(password, user.password)
+    const status = user.isVerified
+    console.log(user.isVerified);
+    console.log(compPassword);
+
+    if (user && compPassword) {
+        if (status == false) {
+            res.status(400).send('Please verifier email')
+        }
+
+        console.log(user.id_user);
+        const token = genToken(user.id_user)
+        console.log(token);
+        res.localStorage.setItem('access-token', token);
+        res.status(200).json({
+            id : user.id_user,
+            first_Name : user.first_Name,
+            last_Name: user.last_Name,
+            email : user.email,
+            phone_number : user.phone_number,
+            city : user.city,
+            adress : user.adress,
+            message : 'user is logened'
+        })
+    }else{
+        throw new Error('wonrg')
+    }
+})
 
 /**
  * methode => post
@@ -38,10 +69,10 @@ const login = (req, res) => {
 
     const emailExist = await UserModel.findOne({ where: { email } })
     
-    // if (emailExist) {
-    //     res.status(400)
-    //     throw new Error('Opps!! Email has been already taken')
-    // }
+    if (emailExist) {
+        res.status(400)
+        throw new Error('Opps!! Email has been already taken')
+    }
 
     const salt = await bcrypt.genSalt(10)
     const hashPassword = await await bcrypt.hash(password, salt);
