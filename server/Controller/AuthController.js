@@ -1,4 +1,4 @@
-const db = require('../Models')
+const db = require('../Models');
 const bcrypt = require('bcryptjs');
 const crypto = require('crypto');
 const asyncHandler = require('express-async-handler')
