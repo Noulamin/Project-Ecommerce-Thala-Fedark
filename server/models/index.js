@@ -14,7 +14,7 @@ db.sequelize = sequelize;
 
 
 db.UserModel = require("./UserModel")(sequelize, Sequelize)
-db.RoleModel = require("./RoleModel")(sequelize, Sequelize)
+// db.RoleModel = require("./RoleModel")(sequelize, Sequelize)
 db.CategorieModel = require('./CategorieModel')(sequelize, Sequelize)
 db.CommandModel = require('./CommandModel')(sequelize, Sequelize)
 db.CommentModel = require('./CommentModel')(sequelize, Sequelize)
@@ -43,8 +43,8 @@ db.CategorieModel.hasMany(db.ProduitModel)
 db.ProduitModel.belongsTo(db.CategorieModel)
 
 // Association between User and Role
-db.UserModel.belongsTo(db.RoleModel);
-db.RoleModel.hasMany(db.UserModel);
+// db.UserModel.belongsTo(db.RoleModel);
+// db.RoleModel.hasMany(db.UserModel);
 
 // Association between User and Comments
 db.UserModel.belongsTo(db.CommentModel);
