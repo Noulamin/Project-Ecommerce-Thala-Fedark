@@ -5,7 +5,7 @@ app.use(express.json());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-const db = require('./Models')
+const db = require('./models')
 
 db.sequelize.sync()
 

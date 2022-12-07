@@ -18,6 +18,7 @@ module.exports = (sequelize, Sequelize) => {
         status : {
             type : Sequelize.STRING,
             allowNull: false,
+            defaultValue : "en cours"
         },
         date_livraison : {
             type : Sequelize.DATE,
