@@ -8,16 +8,17 @@ module.exports = (sequelize, Sequelize) => {
             primaryKey: true
         },
         quantity : {
-            type : Sequelize.STRING,
+            type : Sequelize.INTEGER,
             allowNull: false,
         },
         montant : {
-            type : Sequelize.STRING,
+            type : Sequelize.INTEGER,
             allowNull: false,
         },
         status : {
             type : Sequelize.STRING,
             allowNull: false,
+            defaultValue : "en cours"
         },
         date_livraison : {
             type : Sequelize.DATE,

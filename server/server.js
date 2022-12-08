@@ -12,7 +12,7 @@ db.sequelize.sync()
     console.log('Base de données connecté');
 })
 .catch((err) => {
-    console.log(err);
+    console.log(err); 
 })
 
 
@@ -22,7 +22,7 @@ app.use('/api/auth', authRouter)
 
 
 
-const port = process.env.PORT || 8081
+const port = process.env.PORT || 3001
 
 app.listen(port, (err) => {
     if(!err){

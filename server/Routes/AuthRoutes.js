@@ -1,6 +1,6 @@
 const router = require('express').Router()
 
-const {login, register, forgetPassword, resetPassword, verifierEmail} = require('../Controller/AuthController')
+const { login, register, forgetPassword, resetPassword, verifierEmail } = require('../Controller/AuthController')
 
 
 router.post('/login',login)
