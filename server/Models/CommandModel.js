@@ -16,7 +16,7 @@ module.exports = (sequelize, Sequelize) => {
             allowNull: false,
         },
         status : {
-            type : Sequelize.STRING,
+            type : Sequelize.STRING, 
             allowNull: false,
             defaultValue : "en cours"
         },
@@ -25,7 +25,7 @@ module.exports = (sequelize, Sequelize) => {
             allowNull: false,
             defaultValue: Sequelize.NOW
         }
-
+        
         // # id_prod
         // # id_user
     })
