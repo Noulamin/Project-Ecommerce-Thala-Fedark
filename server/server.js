@@ -1,8 +1,15 @@
 require('dotenv').config();
 const express = require('express');
 const app = express();
+const ProductRoutes = require("./Routes/ProductRoutes");
+const fileUpload = require("express-fileupload");
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(
+    fileUpload({
+      createParentPath: true,
+    })
+  );
 
 const db = require('./Models')
 
@@ -14,7 +21,9 @@ db.sequelize.sync()
 .catch((err) => {
     console.log(err); 
 })
+// //Product Route
 
+app.use("/Product",ProductRoutes);
 
 const authRouter = require('./Routes/AuthRoutes')
 
