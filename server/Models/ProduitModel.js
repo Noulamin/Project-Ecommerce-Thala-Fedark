@@ -19,10 +19,11 @@ module.exports = (sequelize, Sequelize) => {
             type : Sequelize.INTEGER
         },
         stock_produit  : {
-            type : Sequelize.STRING
+            type : Sequelize.INTEGER
         },
         promotion_produit : {
-            type : Sequelize.BOOLEAN
+            type : Sequelize.BOOLEAN,
+            defaultValue : false
         },
         pourcentage_produit : {
             type : Sequelize.INTEGER
