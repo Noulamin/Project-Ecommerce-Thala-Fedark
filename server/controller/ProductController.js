@@ -19,7 +19,7 @@ exports.createProduct = async (req, res) => {
     if (!image) {
       res.send({
         success: false,
-        message: "No file uploaded",
+        message: "No file uploaded.......",
       });
       return;
     }
