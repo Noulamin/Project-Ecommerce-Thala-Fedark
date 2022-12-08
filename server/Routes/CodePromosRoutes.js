@@ -4,7 +4,7 @@ const {AddPromoCode, UpdatePromoCode, DeletePromoCode} = require('../Controller/
 
 
 router.post('/AddPromoCode', AddPromoCode)
-router.post('/UpdatePromoCode/:id',UpdatePromoCode)
-router.post('/DeletePromoCode/:id',DeletePromoCode)
+router.post('/UpdatePromoCode/:id', UpdatePromoCode)
+router.post('/DeletePromoCode/:id', DeletePromoCode)
 
 module.exports = router
