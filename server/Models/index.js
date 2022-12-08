@@ -4,7 +4,8 @@ const Sequelize = require('sequelize');
 const sequelize = new Sequelize(dbConfig.db, dbConfig.user, dbConfig.password, {
     host: dbConfig.host,
     dialect: dbConfig.dialect,
-    operatorsAliases: false
+    Port : 5432,
+    operatorsAliases: 0,
 })
 
 
@@ -14,7 +15,6 @@ db.sequelize = sequelize;
 
 
 db.UserModel = require("./UserModel")(sequelize, Sequelize)
-db.RoleModel = require("./RoleModel")(sequelize, Sequelize)
 db.CategorieModel = require('./CategorieModel')(sequelize, Sequelize)
 db.CommandModel = require('./CommandModel')(sequelize, Sequelize)
 db.CommentModel = require('./CommentModel')(sequelize, Sequelize)
@@ -27,8 +27,8 @@ db.UserModel.hasMany(db.CommandModel)
 db.CommandModel.belongsTo(db.UserModel)
 
 // Association between CodePromos && Prod
-db.ProduitModel.hasMany(db.CodePromosModel)
-db.CodePromosModel.belongsTo(db.ProduitModel)
+db.ProduitModel.belongsTo(db.CodePromosModel)
+db.CodePromosModel.hasMany(db.ProduitModel)
 
 // Association between Prod && Comments
 db.ProduitModel.hasMany(db.CommentModel)
@@ -42,13 +42,10 @@ db.AvisModel.belongsTo(db.ProduitModel)
 db.CategorieModel.hasMany(db.ProduitModel)
 db.ProduitModel.belongsTo(db.CategorieModel)
 
-// Association between User and Role
-db.UserModel.belongsTo(db.RoleModel);
-db.RoleModel.hasMany(db.UserModel);
 
 // Association between User and Comments
-db.UserModel.belongsTo(db.CommentModel);
-db.CommentModel.hasMany(db.UserModel);
+db.CommentModel.belongsTo(db.UserModel);
+db.UserModel.hasMany(db.CommentModel);
 
 // Association between Prod and Command
 db.ProduitModel.belongsToMany(db.CommandModel, {

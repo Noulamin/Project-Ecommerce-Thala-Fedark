@@ -23,16 +23,29 @@ module.exports = (sequelize, Sequelize) => {
         city : {
             type : Sequelize.STRING
         },
-        adress : {
+        adresse : {
             type : Sequelize.STRING
         },
         ValidateToken : {
             type : Sequelize.STRING
         },
-        isVerified : {
+        Status : {
             type : Sequelize.BOOLEAN,
             defaultValue : false
         },
+        role: {
+            type: Sequelize.STRING,
+            allowNull: false,
+            defaultValue: 'client',
+            validate: {
+              roleValidator: (value) => {
+                const roles = ['client', 'manager'];
+                if (!roles.includes(value)) {
+                  throw new Error('not a valid role');
+                }
+              },
+            },
+          },
         
     })
     return users;

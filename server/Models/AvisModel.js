@@ -1,18 +1,18 @@
 const { sequelize, Sequelize } = require(".");
 
 module.exports = (sequelize, Sequelize) => {
-    const role = sequelize.define('roles', {
-        id_role : {
+    const avis = sequelize.define('avis', {
+        id_avis : {
             type: Sequelize.INTEGER,
             autoIncrement: true,
             primaryKey: true
         },
-        role : {
-            type : Sequelize.STRING,
-            defaultValue: "client",
+        avis : {
+            type : Sequelize.INTEGER,
+            allowNull: false,
         }
+
+        // # id_prod => foreign key
     })
-
-
-    return role;
+    return avis;
 }
