@@ -4,7 +4,7 @@ const crypto = require('crypto');
 const asyncHandler = require('express-async-handler')
 const sendEmail = require('../Utils/sendEmail');
 const genToken = require('../Utils/generateToken');
-// const cookie = require('cookie-parser')
+const cookie = require('cookie-parser')
 
 
 const UserModel = db.UserModel;
@@ -22,33 +22,35 @@ const login = asyncHandler(async (req, res) => {
     }
 
     const user = await UserModel.findOne({ where: { email } })
+    if(!user) return res.status(400).send('User dose not exist')
     console.log(user)
+
     const compPassword = await bcrypt.compare(password, user.password)
-    const status = user.isVerified
-    console.log(user.isVerified);
-    console.log(compPassword);
+    console.log(user.password);
 
     if (user && compPassword) {
-        if (status == false) {
-            res.status(400).send('Please verifier email')
-        }
+        if(user.isVerified == false){
+            return res.status(400).send("your email is not validated")
+         }
 
-        console.log(user.id_user);
         const token = genToken(user.id_user)
         console.log(token);
-        res.localStorage.setItem('access-token', token);
+        res.cookie('access-token', token)
         res.status(200).json({
             id: user.id_user,
             first_Name: user.first_Name,
             last_Name: user.last_Name,
-            email: user.email,
-            phone_number: user.phone_number,
-            city: user.city,
-            adress: user.adress,
-            message: 'user is logened'
+            email : user.email,
+            phone_number : user.phone_number,
+            city : user.city,
+            adress : user.adress,
+            message : 'user is logened',
+            role : user.role,
+            token : token
         })
-    } else {
-        throw new Error('wonrg')
+    }else{
+        res.status(400)
+        throw new Error('Opps!! Email or Password is not correct')
     }
 })
 
@@ -68,11 +70,11 @@ const register = asyncHandler(async (req, res) => {
     }
 
     const emailExist = await UserModel.findOne({ where: { email } })
-
-    if (emailExist) {
-        res.status(400)
-        throw new Error('Opps!! Email has been already taken')
-    }
+    
+    // if (emailExist) {
+    //     res.status(400)
+    //     throw new Error('Opps!! Email has been already taken')
+    // }
 
     const salt = await bcrypt.genSalt(10)
     const hashPassword = await await bcrypt.hash(password, salt);
