@@ -1,16 +1,14 @@
 import React from 'react'
 
-const input = (props, onChange) => {
+const input = (props) => {
     return (
         <>
-            <div className='mt-3'>
-                <label className='form-label'>{props.title}</label>
-                <input className="form-control inputs"
-                    type={props.type}
-                    name = {props.name}
-                    onChange 
-                    placeholder={props.placeholder} />
-            </div>
+            <label className="text-gray-600 mb-2 block" style={{ fontSize: '14px' }}>{props.title}</label>
+            <input
+                type= {props.type}
+                name={props.name}
+                className="block w-full border border-gray-300 px-3 py-2 text-gray-600 text-sm rounded focus:ring-0 focus:border-primary placeholder-gray-400"
+                placeholder={props.placeholder}/>
         </>
     )
 }

@@ -1,8 +1,8 @@
 import {Routes,Route} from 'react-router-dom';
 import React from 'react';
 import './App.css';
-import Register from './pages/register';
-import Index from './pages/home'
+import Register from './pages/Register';
+import Index from './pages/Home'
 
 
 
