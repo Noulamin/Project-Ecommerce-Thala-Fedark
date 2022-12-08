@@ -1,9 +1,5 @@
 const db = require('../Models');
-const bcrypt = require('bcryptjs');
-const crypto = require('crypto');
 const asyncHandler = require('express-async-handler')
-const sendEmail = require('../Utils/sendEmail');
-const genToken = require('../Utils/generateToken');
 
 const CodePromosModel = db.CodePromosModel;
 
@@ -27,7 +23,7 @@ const UpdatePromoCode = asyncHandler(async (req, res) => {
     if (!old_code_promo || !new_code_promo || !new_pourcentage_promo || !new_date_expiration) {
         res.status(400).send('Please fill all fields.')
     }
-    
+
     await CodePromosModel.update(
         {
             code_promo: new_code_promo,
@@ -51,4 +47,4 @@ const DeletePromoCode = asyncHandler(async (req, res) => {
     });
 })
 
-module.exports = {AddPromoCode, UpdatePromoCode, DeletePromoCode}
+module.exports = { AddPromoCode, UpdatePromoCode, DeletePromoCode }

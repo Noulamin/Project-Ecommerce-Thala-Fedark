@@ -1,6 +1,6 @@
 const router = require('express').Router()
 
-const {AddPromoCode, UpdatePromoCode, DeletePromoCode} = require('../Controller/CodePromosController')
+const { AddPromoCode, UpdatePromoCode, DeletePromoCode } = require('../Controller/CodePromosController')
 
 
 router.post('/AddPromoCode', AddPromoCode)
