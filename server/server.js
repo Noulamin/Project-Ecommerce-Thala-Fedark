@@ -17,8 +17,10 @@ db.sequelize.sync()
 
 
 const authRouter = require('./Routes/AuthRoutes')
+const CodePromoRouter = require('./Routes/CodePromosRoutes')
 
 app.use('/api/auth', authRouter)
+app.use('/PromoCode/', CodePromoRouter)
 
 
 
