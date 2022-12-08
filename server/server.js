@@ -1,5 +1,6 @@
 require('dotenv').config();
 const express = require('express');
+const db = require('./Models')
 const app = express();
 const ProductRoutes = require("./Routes/ProductRoutes");
 const fileUpload = require("express-fileupload");
@@ -11,7 +12,7 @@ app.use(
     })
   );
 
-const db = require('./Models')
+
 
 db.sequelize.sync()
 
@@ -23,13 +24,20 @@ db.sequelize.sync()
 })
 // //Product Route
 
+const commandRouter = require('./Routes/CommandRouter.js')
+
 app.use("/Product",ProductRoutes);
+
 
 const authRouter = require('./Routes/AuthRoutes')
 const CodePromoRouter = require('./Routes/CodePromosRoutes')
 
 app.use('/api/auth', authRouter)
+
+app.use('/api/admin', commandRouter)
+
 app.use('/PromoCode/', CodePromoRouter)
+
 
 
 
