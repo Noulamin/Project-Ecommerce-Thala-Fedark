@@ -53,8 +53,6 @@ exports.createProduct = async (req, res) => {
         });
       };
 
-
-    
  } catch (error) {
     console.log(err);
  }
