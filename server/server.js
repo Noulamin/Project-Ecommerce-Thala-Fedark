@@ -12,7 +12,7 @@ app.use(express.urlencoded({ extended: true }));
 // );
 
 const cors = require('cors');
-app.use(cors({origin: true, credentials: true}));
+app.use(cors());
 
 
 db.sequelize.sync()
