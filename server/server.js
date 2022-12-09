@@ -1,44 +1,56 @@
 require('dotenv').config();
 const express = require('express');
+const db = require('./Models')
 const app = express();
 const ProductRoutes = require("./Routes/ProductRoutes");
-const categoryRoutes = require("./Routes/CategoryRoutes");
+const categorieRoutes = require('./Routes/CategoryRoutes')
 const fileUpload = require("express-fileupload");
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(
     fileUpload({
-      createParentPath: true,
+        createParentPath: true,
     })
-  );
+);
 
-const db = require('./Models')
+
 
 db.sequelize.sync()
 
-.then(() => {
-    console.log('Base de données connecté');
-})
-.catch((err) => {
-    console.log(err); 
-})
+    .then(() => {
+        console.log('Base de données connecté');
+    })
+    .catch((err) => {
+        console.log(err);
+    })
+
 // //Product Route
+
 app.use("/Product",ProductRoutes);
-//Category Route
-app.use("/categories",categoryRoutes);
+app.use("/categorie", categorieRoutes)
 
 const authRouter = require('./Routes/AuthRoutes')
+const ProductRoutes = require("./Routes/ProductRoutes");
+const commandRouter = require('./Routes/CommandRouter.js')
+const CodePromoRouter = require('./Routes/CodePromosRoutes')
 
 app.use('/api/auth', authRouter)
+
+app.use("/Product", ProductRoutes);
+
+app.use('/api/admin', commandRouter)
+
+app.use('/PromoCode/', CodePromoRouter)
+
 
 
 
 const port = process.env.PORT || 3001
 
 app.listen(port, (err) => {
-    if(!err){
+    if (!err) {
         console.log(`the server is raning in the port ${port}`);
-    }else{
+    } else {
         console.log(err);
     }
 })
