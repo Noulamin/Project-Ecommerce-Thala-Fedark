@@ -5,8 +5,12 @@ const CodePromosModel = db.CodePromosModel;
 
 // Get
 const GetAllCodePromos = asyncHandler(async (req, res) => {
-    const data = await CodePromosModel.findAll({});
-    res.send(data);
+    const result = await CodePromosModel.findAll({});
+    if (result) {
+        res.send(result).status(201).send("Sending date.")
+    } else {
+        res.status(404).send("Something is wrong.")
+    }
 })
 
 // Add
@@ -15,53 +19,65 @@ const AddPromoCode = asyncHandler(async (req, res) => {
     if (!code_promo || !pourcentage_promo || !date_expiration) {
         res.status(400).send('Please fill all fields.')
     }
-    
+
     const data = {
         code_promo: code_promo,
         pourcentage_promo: pourcentage_promo,
         date_expiration: date_expiration,
     }
-    
-    console.log(data)
-    const result = await CodePromosModel.Create(data)
 
+    console.log(data)
+
+    const result = await CodePromosModel.create(data)
     if (result) {
-        res.status(201).json({user })
-    }else {
-        res.status(201).send("Something is wrong.")
+        res.status(201).send("Created successfully.")
+    } else {
+        res.status(404).send("Something is wrong.")
     }
 
 })
 
 // Update
 const UpdatePromoCode = asyncHandler(async (req, res) => {
-    const { old_code_promo, new_code_promo, new_pourcentage_promo, new_date_expiration } = req.body;
-    if (!old_code_promo || !new_code_promo || !new_pourcentage_promo || !new_date_expiration) {
+    const { code_promo, pourcentage_promo, date_expiration } = req.body;
+    if (!code_promo || !pourcentage_promo || !date_expiration) {
         res.status(400).send('Please fill all fields.')
     }
 
-    await CodePromosModel.update(
+    id_promos = req.params.id
+
+    const result = await CodePromosModel.update(
         {
-            code_promo: new_code_promo,
-            pourcentage_promo: new_pourcentage_promo,
-            date_expiration: new_date_expiration,
+            code_promo: code_promo,
+            pourcentage_promo: pourcentage_promo,
+            date_expiration: date_expiration,
         },
         {
-            where: { code_promo: old_code_promo },
+            where: { id_promos: id_promos },
         }
     );
+
+    if (result) {
+        res.status(201).send("Updated successfully.")
+    } else {
+        res.status(404).send("Something is wrong.")
+    }
 })
 
 // Delete
 const DeletePromoCode = asyncHandler(async (req, res) => {
-    const { code_promo } = req.body;
-    if (!code_promo) {
-        res.status(400).send('Needs PromoCode to delete it.')
-    }
 
-    await CodePromosModel.destroy({
-        where: { code_promo: code_promo },
+    id_promos = req.params.id
+
+    const result = await CodePromosModel.destroy({
+        where: { id_promos: id_promos },
     });
+
+    if (result) {
+        res.status(201).send("Deleted successfully.")
+    } else {
+        res.status(404).send("Something is wrong.")
+    }
 })
 
 module.exports = { AddPromoCode, UpdatePromoCode, DeletePromoCode, GetAllCodePromos }
