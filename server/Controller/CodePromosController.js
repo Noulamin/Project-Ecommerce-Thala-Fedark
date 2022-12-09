@@ -7,7 +7,7 @@ const CodePromosModel = db.CodePromosModel;
 const GetAllCodePromos = asyncHandler(async (req, res) => {
     const result = await CodePromosModel.findAll({});
     if (result) {
-        res.send(result).status(201).send("Sending date.")
+        res.send(result).status(200).send("Sending date.")
     } else {
         res.status(404).send("Something is wrong.")
     }
@@ -30,7 +30,7 @@ const AddPromoCode = asyncHandler(async (req, res) => {
 
     const result = await CodePromosModel.create(data)
     if (result) {
-        res.status(201).send("Created successfully.")
+        res.status(200).send("Created successfully.")
     } else {
         res.status(404).send("Something is wrong.")
     }
@@ -58,7 +58,7 @@ const UpdatePromoCode = asyncHandler(async (req, res) => {
     );
 
     if (result) {
-        res.status(201).send("Updated successfully.")
+        res.status(200).send("Updated successfully.")
     } else {
         res.status(404).send("Something is wrong.")
     }
@@ -74,7 +74,7 @@ const DeletePromoCode = asyncHandler(async (req, res) => {
     });
 
     if (result) {
-        res.status(201).send("Deleted successfully.")
+        res.status(200).send("Deleted successfully.")
     } else {
         res.status(404).send("Something is wrong.")
     }

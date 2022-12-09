@@ -42,7 +42,7 @@ app.use("/Product", ProductRoutes);
 
 app.use('/api/admin', commandRouter)
 
-app.use('/PromoCode/', CodePromoRouter)
+app.use('/PromoCode', CodePromoRouter)
 
 
 
