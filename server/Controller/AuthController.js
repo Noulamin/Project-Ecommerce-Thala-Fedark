@@ -114,7 +114,7 @@ const forgetPassword = asyncHandler(async (req, res) => {
     const user = await UserModel.findOne({email})
     if(!user)return res.status(400).send({err : 'Please add your Email'})
     //create token
-    const token = genToken(user.id)
+    const token = genToken(user.id_user)
     console.log(token);
 
     const subject = 'Reset Password'
@@ -130,9 +130,28 @@ const forgetPassword = asyncHandler(async (req, res) => {
  * url => api/auth/resetPassword
  * access => public
  */
-const resetPassword = (req, res) => {
-    res.status(200).send('this resetPassword page')
-}
+const resetPassword = asyncHandler(async (req, res) => {
+    const {password,password2} = req.body
+    if (!password || !password2) {
+        res.status(400)
+        throw new Error('please Enter New password')
+    }else if(password != password2){
+        res.status(400)
+        throw new Error('Password not match')
+    }
+    const token = req.params.token
+    const salt = await bcrypt.genSalt();
+    const hashPassword = await bcrypt.hash(password, salt)
+    
+    const verifierToken = await jwt.verify(token, process.env.JWT_SECRET)
+    console.log(verifierToken);
+    await UserModel.update(
+        {password : hashPassword},
+        {where : {id_user :verifierToken.id}}
+    )                                                                 
+    res.status(200).json({mess : 'password has update successfuly'})
+
+})
 
 
 /**
