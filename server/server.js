@@ -12,7 +12,7 @@ app.use(
 );
 
 const cors = require('cors');
-app.use(cors());
+app.use(cors({origin: true, credentials: true}));
 
 
 db.sequelize.sync()

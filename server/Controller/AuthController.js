@@ -51,7 +51,7 @@ const login = asyncHandler(async (req, res) => {
         })
     }else{
         res.status(400)
-        throw new Error('Opps!! Email or Password is not correct')
+        .send('Opps!! Email or Password is not correct')
     }
 })
 
@@ -118,7 +118,7 @@ const forgetPassword = asyncHandler(async (req, res) => {
     console.log(token);
 
     const subject = 'Reset Password'
-    const url = `<h2 >Please click Her For validate Your Email <a href="http://localhost:8080/api/auth/resetPassword/${token}">Reset Your Password</a></h2>`
+    const url = `<h2 >Please click Her For validate Your Email <a href="http://localhost:3000/resetPassword/${token}">Reset Your Password</a></h2>`
     sendEmail(user.email, token, subject, url)
 
     res.status(200).json({mess : 'Re-send the password, please check your email'})
