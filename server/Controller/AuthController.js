@@ -43,7 +43,7 @@ const login = asyncHandler(async (req, res) => {
             email : user.email,
             phone_number : user.phone_number,
             city : user.city,
-            adress : user.adress,
+            adresse : user.adresse,
             message : 'user is logened',
             role : user.role,
             token : token
@@ -60,9 +60,9 @@ const login = asyncHandler(async (req, res) => {
  * access => public
  */
 const register = asyncHandler(async (req, res) => {
-    const { first_Name, last_Name, email, password,phone_number, city, adress } = req.body
+    const { first_Name, last_Name, email, password, phone_number, city, adresse } = req.body
 
-    if (!first_Name || !last_Name || !email || !password || !phone_number || !city || !adress) {
+    if (!first_Name || !last_Name || !email || !password || !phone_number || !city || !adresse) {
         res.status(400).send('please add all fields')
     }
 
@@ -84,11 +84,11 @@ const register = asyncHandler(async (req, res) => {
         password: hashPassword,
         phone_number,
         city,
-        adress,
+        adresse,
         ValidateToken: crypto.randomBytes(64).toString('hex'),
     }
 
-    const user = await UserModel.build(data)
+    const user = await UserModel.create(data)
 
     const url = `<h2 >Please click Her For validate Your Email <a href="http://localhost:8080/api/auth/verifierEmail/${data.ValidateToken}">validation</a></h2>`
     const subject = 'Email Validation'

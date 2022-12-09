@@ -9,8 +9,8 @@ import inputValidation from '../utils/InputValidation'
 
 
 const Register = () => {
-    const [formData, setFormData] = useState({ first_Name: '', last_Name: '', email: '', password: '', password2: '', phone_Number: '', city: '', adress: '' })
-    const { first_Name, last_Name, email, password, password2, phone_Number, city, adress } = formData
+    const [formData, setFormData] = useState({ first_Name: '', last_Name: '', email: '', password: '', password2: '', phone_number: '', city: '', adresse: '' })
+    const { first_Name, last_Name, email, password, password2, phone_number, city, adresse } = formData
     const [error, setError] = useState(false)
     const [errorPassword, setErrorPassword] = useState(false)
     const [result, setResult] = useState('')
@@ -23,13 +23,13 @@ const Register = () => {
     }
 
     const url = 'http://localhost:8080/api/auth/register'
-    const data = { first_Name, last_Name, email, password, phone_Number, city, adress }
+    const data = { first_Name, last_Name, email, password, phone_number, city, adresse }
 
     const handleSubmit = (e) => {
         e.preventDefault();
         // setError(inputValidation(values));
 
-        if (formData.first_Name.length == 0 || formData.last_Name.length == 0 || formData.email.length == 0 || formData.password.length == 0 || formData.password2.length == 0 || formData.phone_Number.length == 0 || formData.city.length == 0 || formData.adress.length == 0) {
+        if (formData.first_Name.length == 0 || formData.last_Name.length == 0 || formData.email.length == 0 || formData.password.length == 0 || formData.password2.length == 0 || formData.phone_number.length == 0 || formData.city.length == 0 || formData.adresse.length == 0) {
             setError(true)
         }
         else if (formData.password != formData.password2) {
@@ -129,25 +129,25 @@ const Register = () => {
                                 < Input
                                     title='Phone Number'
                                     type='text'
-                                    name='phone_Number'
+                                    name='phone_number'
                                     placeholder="Enter Phone Number"
                                     onChange={onChange}
-                                    value={phone_Number}
+                                    value={phone_number}
                                 />
                             </div>
-                            {error && formData.phone_Number.length <= 0 ? <p className='m-0' style={{ 'color': 'red', fontSize: '12px' }}> Phone number can not be empty</p> : ''}
+                            {error && formData.phone_number.length <= 0 ? <p className='m-0' style={{ 'color': 'red', fontSize: '12px' }}> Phone number can not be empty</p> : ''}
 
                             <div>
                                 < Input
-                                    title='Adresse'
+                                    title='adressee'
                                     type='text'
-                                    name='adress'
-                                    placeholder='Enter Your Adresse'
+                                    name='adresse'
+                                    placeholder='Enter Your adressee'
                                     onChange={onChange}
-                                    value={adress}
+                                    value={adresse}
                                 />
                             </div>
-                            {error && formData.adress.length <= 0 ? <p className='m-0' style={{ 'color': 'red', fontSize: '12px' }}> Adresse can not be empty</p> : ''}
+                            {error && formData.adresse.length <= 0 ? <p className='m-0' style={{ 'color': 'red', fontSize: '12px' }}> adressee can not be empty</p> : ''}
 
                             <div>
                                 < Input

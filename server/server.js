@@ -2,14 +2,14 @@ require('dotenv').config();
 const express = require('express');
 const db = require('./Models')
 const app = express();
-// const fileUpload = require("express-fileupload");
+const fileUpload = require("express-fileupload");
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-// app.use(
-//     fileUpload({
-//         createParentPath: true,
-//     })
-// );
+app.use(
+    fileUpload({
+        createParentPath: true,
+    })
+);
 
 const cors = require('cors');
 app.use(cors());
