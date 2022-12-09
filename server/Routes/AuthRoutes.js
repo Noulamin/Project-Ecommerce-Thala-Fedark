@@ -6,7 +6,7 @@ const { login, register, forgetPassword, resetPassword, verifierEmail } = requir
 router.post('/login', login)
 router.post('/register', register)
 router.post('/forgetPassword', forgetPassword)
-router.post('/resetPassword', resetPassword)
+router.post('/resetPassword/:token', resetPassword)
 router.get('/verifierEmail/:token', verifierEmail)
 
 module.exports = router

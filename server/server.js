@@ -29,8 +29,12 @@ db.sequelize.sync()
 
 const authRouter = require('./Routes/AuthRoutes')
 const ProductRoutes = require("./Routes/ProductRoutes");
+const categorieRoutes = require('./Routes/CategoryRoutes')
 const commandRouter = require('./Routes/CommandRouter.js')
 const CodePromoRouter = require('./Routes/CodePromosRoutes')
+
+
+app.use("/categorie", categorieRoutes)
 
 app.use('/api/auth', authRouter)
 
@@ -38,7 +42,7 @@ app.use("/Product", ProductRoutes);
 
 app.use('/api/admin', commandRouter)
 
-app.use('/PromoCode/', CodePromoRouter)
+app.use('/PromoCode', CodePromoRouter)
 
 
 
