@@ -43,7 +43,7 @@ const login = asyncHandler(async (req, res) => {
             email : user.email,
             phone_number : user.phone_number,
             city : user.city,
-            adress : user.adress,
+            adresse : user.adresse,
             message : 'user is logened',
             role : user.role,
             token : token
@@ -60,13 +60,10 @@ const login = asyncHandler(async (req, res) => {
  * access => public
  */
 const register = asyncHandler(async (req, res) => {
-    const { first_Name, last_Name, email, password, password2, phone_number, city, adress } = req.body
+    const { first_Name, last_Name, email, password, phone_number, city, adresse } = req.body
 
-    if (!first_Name || !last_Name || !email || !password || !password2 || !phone_number || !city || !adress) {
+    if (!first_Name || !last_Name || !email || !password || !phone_number || !city || !adresse) {
         res.status(400).send('please add all fields')
-    } else if (password != password2) {
-        res.status(400)
-        throw new Error('password not match')
     }
 
     const emailExist = await UserModel.findOne({ where: { email } })
@@ -85,10 +82,9 @@ const register = asyncHandler(async (req, res) => {
         last_Name,
         email,
         password: hashPassword,
-        password2: password,
         phone_number,
         city,
-        adress,
+        adresse,
         ValidateToken: crypto.randomBytes(64).toString('hex'),
     }
 
