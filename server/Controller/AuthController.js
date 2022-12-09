@@ -46,8 +46,7 @@ const login = asyncHandler(async (req, res) => {
             city : user.city,
             adresse : user.adresse,
             message : 'user is logened',
-            role : user.role,
-            token : token
+            role : user.role
         })
     }else{
         res.status(400)

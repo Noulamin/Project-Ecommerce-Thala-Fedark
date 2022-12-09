@@ -3,6 +3,7 @@ const express = require('express');
 const db = require('./Models')
 const app = express();
 const fileUpload = require("express-fileupload");
+const coockieparser = require('cookie-parser')
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(
@@ -11,6 +12,7 @@ app.use(
     })
 );
 
+app.use(coockieparser())
 const cors = require('cors');
 app.use(cors({origin: true, credentials: true}));
 
@@ -26,13 +28,14 @@ db.sequelize.sync()
 
 // //Product Route
 
-
+const clientRouter = require('./Routes/ClientRoutes')
 const authRouter = require('./Routes/AuthRoutes')
 const ProductRoutes = require("./Routes/ProductRoutes");
 const categorieRoutes = require('./Routes/CategoryRoutes')
 const commandRouter = require('./Routes/CommandRouter.js')
 const CodePromoRouter = require('./Routes/CodePromosRoutes')
 
+app.use('/api/user', clientRouter)
 
 app.use("/categorie", categorieRoutes)
 
