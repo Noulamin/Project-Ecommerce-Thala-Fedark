@@ -2,6 +2,8 @@ require('dotenv').config();
 const express = require('express');
 const db = require('./Models')
 const app = express();
+const ProductRoutes = require("./Routes/ProductRoutes");
+const categorieRoutes = require('./Routes/CategoryRoutes')
 const fileUpload = require("express-fileupload");
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -24,6 +26,8 @@ db.sequelize.sync()
 
 // //Product Route
 
+app.use("/Product",ProductRoutes);
+app.use("/categorie", categorieRoutes)
 
 const authRouter = require('./Routes/AuthRoutes')
 const ProductRoutes = require("./Routes/ProductRoutes");
