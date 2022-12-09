@@ -54,9 +54,12 @@ try {
   };
 
 
+
 } catch (error) {
   console.log(err);
 }
+
+
 
 //update product:
 
