@@ -60,13 +60,10 @@ const login = asyncHandler(async (req, res) => {
  * access => public
  */
 const register = asyncHandler(async (req, res) => {
-    const { first_Name, last_Name, email, password, password2, phone_number, city, adress } = req.body
+    const { first_Name, last_Name, email, password,phone_number, city, adress } = req.body
 
-    if (!first_Name || !last_Name || !email || !password || !password2 || !phone_number || !city || !adress) {
+    if (!first_Name || !last_Name || !email || !password || !phone_number || !city || !adress) {
         res.status(400).send('please add all fields')
-    } else if (password != password2) {
-        res.status(400)
-        throw new Error('password not match')
     }
 
     const emailExist = await UserModel.findOne({ where: { email } })
@@ -85,14 +82,13 @@ const register = asyncHandler(async (req, res) => {
         last_Name,
         email,
         password: hashPassword,
-        password2: password,
         phone_number,
         city,
         adress,
         ValidateToken: crypto.randomBytes(64).toString('hex'),
     }
 
-    const user = await UserModel.create(data)
+    const user = await UserModel.build(data)
 
     const url = `<h2 >Please click Her For validate Your Email <a href="http://localhost:8080/api/auth/verifierEmail/${data.ValidateToken}">validation</a></h2>`
     const subject = 'Email Validation'
