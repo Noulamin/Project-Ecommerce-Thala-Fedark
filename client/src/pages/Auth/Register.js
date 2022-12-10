@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
-import Input from '../components/Input'
-import Submit from '../components/Submit'
+import Input from '../../components/Input'
+import Submit from '../../components/Submit'
 import axios from 'axios'
-import inputValidation from '../utils/InputValidation'
+// import inputValidation from '../utils/InputValidation'
 
 
 

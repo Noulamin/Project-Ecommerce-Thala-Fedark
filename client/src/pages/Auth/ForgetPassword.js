@@ -1,8 +1,8 @@
 import axios from 'axios'
 import React, { useState } from 'react'
-import Submit from '../components/Submit'
+import Submit from '../../components/Submit'
 import { useNavigate } from 'react-router-dom'
-import Input from '../components/Input'
+import Input from '../../components/Input'
 
 
 

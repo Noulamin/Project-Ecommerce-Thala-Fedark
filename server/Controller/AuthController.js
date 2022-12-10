@@ -34,7 +34,7 @@ const login = asyncHandler(async (req, res) => {
             return res.status(400).send("your email is not validated")
          }
 
-        const token = genToken(user.id_user)
+        const token = genToken(user.id_user, user.role)
         console.log(token);
         res.cookie('access-token', token)
         res.status(200).json({
@@ -46,8 +46,7 @@ const login = asyncHandler(async (req, res) => {
             city : user.city,
             adresse : user.adresse,
             message : 'user is logened',
-            role : user.role,
-            token : token
+            role : user.role
         })
     }else{
         res.status(400)
@@ -97,7 +96,10 @@ const register = asyncHandler(async (req, res) => {
 
     if (user) {
         // res.status(201).send('user created successufly')
-        res.status(201).json({ user })
+        res.status(201).json({ 
+            user,
+            mess : 'User create successfuly Please check your email for validation'
+        })
     } else {
         throw new Error('samthing is wrong')
     }
@@ -111,9 +113,13 @@ const register = asyncHandler(async (req, res) => {
  */
 const forgetPassword = asyncHandler(async (req, res) => {
     const {email} = req.body
+    if(!email){
+        res.status(400).send('Please add your Email')
+    }
     const user = await UserModel.findOne({email})
-    if(!user)return res.status(400).send({err : 'Please add your Email'})
-    //create token
+
+    if(!user)return res.status(400).send({err : 'User dose not exist'})
+    
     const token = genToken(user.id_user)
     console.log(token);
 
@@ -133,11 +139,9 @@ const forgetPassword = asyncHandler(async (req, res) => {
 const resetPassword = asyncHandler(async (req, res) => {
     const {password,password2} = req.body
     if (!password || !password2) {
-        res.status(400)
-        throw new Error('please Enter New password')
+        res.status(400).send('please Enter New password')
     }else if(password != password2){
-        res.status(400)
-        throw new Error('Password not match')
+        res.status(400).send('Password not match')
     }
     const token = req.params.token
     const salt = await bcrypt.genSalt();
