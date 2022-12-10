@@ -96,7 +96,10 @@ const register = asyncHandler(async (req, res) => {
 
     if (user) {
         // res.status(201).send('user created successufly')
-        res.status(201).json({ user })
+        res.status(201).json({ 
+            user,
+            mess : 'User create successfuly Please check your email for validation'
+        })
     } else {
         throw new Error('samthing is wrong')
     }

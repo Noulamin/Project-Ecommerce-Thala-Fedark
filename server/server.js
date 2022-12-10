@@ -17,14 +17,7 @@ const cors = require('cors');
 app.use(cors({origin: true, credentials: true}));
 
 
-db.sequelize.sync()
 
-    .then(() => {
-        console.log('Base de données connecté');
-    })
-    .catch((err) => {
-        console.log(err);
-    })
 
 
 const clientRouter = require('./Routes/ClientRoutes')
@@ -50,7 +43,16 @@ app.use('/api/admin', commandRouter)
 app.use('/PromoCode', CodePromoRouter)
 
 
+db.sequelize.sync()
 
+    .then(() => {
+        console.log('Base de données connecté');
+    })
+    .catch((err) => {
+        console.log(err);
+    })
+
+    
 
 const port = process.env.PORT || 3001
 
@@ -61,5 +63,8 @@ app.listen(port, (err) => {
         console.log(err);
     }
 })
+
+
+module.exports = app
 
 
