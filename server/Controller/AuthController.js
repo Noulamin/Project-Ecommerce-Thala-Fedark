@@ -34,7 +34,7 @@ const login = asyncHandler(async (req, res) => {
             return res.status(400).send("your email is not validated")
          }
 
-        const token = genToken(user.id_user)
+        const token = genToken(user.id_user, user.role)
         console.log(token);
         res.cookie('access-token', token)
         res.status(200).json({
