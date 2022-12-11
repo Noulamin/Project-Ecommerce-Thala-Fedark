@@ -4,6 +4,9 @@ import Submit from '../../components/Submit'
 import axios from 'axios'
 // import inputValidation from '../utils/InputValidation'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
+import Header from '../../components/Header'
+import NavBar from '../../components/NavBar'
+
 
 
 
@@ -16,6 +19,10 @@ const Login = () => {
   const [errorPassword, setErrorPassword] = useState(false)
   const [result, setResult] = useState('')
 
+  const navigate = useNavigate()
+  const location = useLocation();
+  const from =  location.state?.from || '/';
+
   const onChange = (e) => {
     setFormData((prevState) => ({
       ...prevState,
@@ -26,7 +33,7 @@ const Login = () => {
   const url = 'http://localhost:8080/api/auth/login'
   const data = { email, password }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     // setError(inputValidation(values));
 
@@ -34,23 +41,32 @@ const Login = () => {
       setError(true)
     }
 
+    try {
+      const res = await axios.post(url, data, { withCredentials: true });
+      console.log(JSON.stringify(res?.data))
+      console.log(res);
+      const roles = res?.data?.role
+      // const name = res?.data?.name;
+      localStorage.setItem('role', roles)
+      localStorage.setItem('email', email)
+      navigate(from, { replace: true });
+      console.log(from);
 
-    axios.post(url, data)
-      .then((res) => {
-        console.log(res)
-        // setResult(res.data)
-        //   setMessage(true)
-      }).catch((err) => {
-        console.log(err)
-        //   setAlert(err.response.data.message)
-        //   setMessage(false)
-      })
+    } catch (err) {
+      if (err.res?.status === 400) {
+        // setErrMsg('Missing Username or Password');
+      }
+
+    }
+
   }
 
 
 
   return (
     <>
+      <Header />
+      <NavBar />
       <div className="contain py-16">
         <div className="max-w-lg mx-auto shadow px-6 py-7 rounded overflow-hidden">
           <form onSubmit={(e) => handleSubmit(e)}>
