@@ -17,7 +17,7 @@ const cors = require('cors');
 app.use(cors({origin: true, credentials: true}));
 
 
-
+const commentaireRouter = require('./Routes/commentaireRoutes')
 
 
 const clientRouter = require('./Routes/ClientRoutes')
@@ -42,6 +42,7 @@ app.use('/api/admin', commandRouter)
 
 app.use('/PromoCode', CodePromoRouter)
 
+app.use('/commentaire' ,commentaireRouter)
 
 db.sequelize.sync()
 

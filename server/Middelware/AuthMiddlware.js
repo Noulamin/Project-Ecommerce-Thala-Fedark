@@ -11,6 +11,7 @@ const loginRequired = asyncHandler( async (req, res, next) => {
             res.user = validateToken.id
             console.log(res.user);
             next()
+            console.log(res.user);
         }
     }else{
         console.error('token is not found')
