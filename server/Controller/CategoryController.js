@@ -5,9 +5,16 @@ const categories = db.CategorieModel ;
 
 
 exports.getAllCategories = async (req, res) => {
-  const data = await categories.findAll({});
-  return data;
-};
+  try {
+    const data = await categories.findAll({});
+    res.send(data).status(200)
+    } 
+    catch (error) 
+    {
+        console.log(error);
+        res.json({message: "0 catégories founded"})
+        .status(400)
+    }};
 // create categorie :
 
 exports.createCategory = (req, res) => {
@@ -81,6 +88,8 @@ exports.updateCategory = async (req, res) => {
   });
 };
 
+
+
 exports.getCategoryById = async (req, res) => {
   const {   id_categorie } = req.params;
   const data = await categories.findOne({
@@ -90,6 +99,10 @@ exports.getCategoryById = async (req, res) => {
   });
   return data;
 };
+
+
+
+
 
 
 
