@@ -6,7 +6,7 @@ const protect = require('../Middelware/AuthMiddlware')
 const checkRoleAdmin = require('../Middelware/checkRoleAdmin')
 
 
-router.get('/admin/me', protect, checkRoleAdmin, getUserAdmin)
+router.get('/admin/me', protect)
 
 
 module.exports = router; 
