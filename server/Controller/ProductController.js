@@ -1,4 +1,5 @@
 const db = require("../Models");
+// const Categorie = require("../Models/index").CategorieModel
 const Product = db.ProduitModel;
 
 exports.getAll = async (req, res) => {
@@ -87,3 +88,33 @@ exports.updateProduct = async (req, res) => {
     data: data,
   });
 };
+
+
+// function POST  commentaire selon l'id du produit : (default en cours)
+/**
+ * methode => POST
+ * @Route => /Product/product/:id_categorie
+ * access => private
+ */
+exports.getProductsByCategorie = async (req,res) => {  
+    try {
+      const idCategorie = req.params
+      console.log(idCategorie);
+      const data = await Product.findAll({
+        where: {
+          categoryIdCategorie : idCategorie.id
+        } 
+      })
+      console.log(data);
+      res
+      .send(data)
+      .status(200)
+      
+    } catch (error) {
+      console.log(error.message);
+      res
+      .json({message: "this categorie is not found"})
+      .status(400)
+
+    }
+  } 
