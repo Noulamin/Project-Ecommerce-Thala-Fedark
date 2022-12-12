@@ -11,9 +11,7 @@ const asyncHandler = require('express-async-handler')
         if(!req.body){
             res.json({message: "please add all fields"})
         }
- 
         const avi = {
-            id_avis: req.params.id_avis,
             avis : req.body.avis,
             produitIdProduit : req.params.produitIdProduit,
         }

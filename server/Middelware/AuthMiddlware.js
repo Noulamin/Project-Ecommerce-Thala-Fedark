@@ -10,7 +10,7 @@ const loginRequired = asyncHandler( async (req, res, next) => {
         if (validateToken) {
             res.user = validateToken.id
             console.log(res.user);
-            next()
+            next()  
             console.log(res.user);
         }
     }else{
@@ -19,7 +19,6 @@ const loginRequired = asyncHandler( async (req, res, next) => {
             message: "login first"
         })
     }
-
 })
 
 module.exports = loginRequired
