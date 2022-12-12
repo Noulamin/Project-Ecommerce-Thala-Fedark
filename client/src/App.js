@@ -1,4 +1,4 @@
-import {Routes,Route} from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import React from 'react';
 import './App.css';
 import Register from './pages/Auth/Register';
@@ -9,6 +9,9 @@ import ResetPassword from './pages/Auth/ResetPassword';
 import RequireAuth from './utils/RequireAuth';
 import DashAdmin from './pages/DashAdmin';
 import ProfClient from './pages/ProfClient';
+import Layout from './components/Layout';
+import NotFound from './pages/NotFound';
+
 
 
 
@@ -16,28 +19,34 @@ import ProfClient from './pages/ProfClient';
 
 function App() {
   return (
-   <>
-    <Routes>
-      <Route path='/' element= {<Home/>} />
-      <Route path='/register' element={<Register/>} />
-      <Route path='/login' element={<Login/>} />
-      <Route path='/forgetPassword' element={<ForgetPassword/>} />
-      <Route path='/resetPassword/:token' element = {<ResetPassword/>} />
+    <>
+      <Routes>
+
+        <Route element={<Layout />} >
+          <Route path='/' element={<Home />} />
+          <Route path='/register' element={<Register />} />
+          <Route path='/login' element={<Login />} />
+          <Route path='/forgetPassword' element={<ForgetPassword />} />
+          <Route path='/resetPassword/:token' element={<ResetPassword />} />
+        </Route>
 
 
 
       // client url = DashClt Component
-      <Route element={<RequireAuth  Roles={["client"]}/>}>
-        <Route path='/client' element={<ProfClient />} />
-      </Route>
+        <Route element={<RequireAuth Roles={["client"]} />}>
+          <Route path='/client' element={<ProfClient />} />
+        </Route>
 
       // admin url = admin Dash Component
-      <Route element={<RequireAuth  Roles={["admin"]}/>}>
-        <Route path='/admin' element={<DashAdmin />} />
-      </Route>
+        <Route element={<RequireAuth Roles={["admin"]} />}>
+          <Route path='/admin' element={<DashAdmin />} />
+        </Route>
 
-    </Routes>
-   </>
+
+        <Route path='*' element={<NotFound/>} />
+
+      </Routes>
+    </>
   );
 }
 

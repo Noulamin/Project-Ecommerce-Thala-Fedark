@@ -1,13 +1,14 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 const Header = () => {
     return (
         <>
             <header className="py-4 shadow-sm bg-white">
                 <div className="container flex items-center justify-between">
-                    <a href="index.html">
+                    <Link to="/">
                         <img src="../assets/images/logo.svg" alt="Logo" className="w-32"/>
-                    </a>
+                    </Link>
 
                     <div className="w-full max-w-xl relative flex">
                         <span className="absolute left-4 top-3 text-lg text-gray-400">

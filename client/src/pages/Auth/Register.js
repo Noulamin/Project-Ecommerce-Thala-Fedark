@@ -56,7 +56,7 @@ const Register = () => {
                 <div className="max-w-lg mx-auto shadow px-6 py-7 rounded overflow-hidden">
                     <form onSubmit={(e) => handleSubmit(e)}>
                         <div className="space-y-2">
-                            <div className='d-flex justify-content-between'>
+                            <div className='flex justify-between'>
                                 <div>
                                     <div >
                                         < Input
@@ -96,7 +96,7 @@ const Register = () => {
                                 />
                             </div>
                             {error && formData.email.length <= 0 ? <p style={{ 'color': 'red', fontSize: '12px' }}> Email can not be empty</p> : ''}
-                            <div className='d-flex justify-content-between'>
+                            <div className='flex justify-between'>
                                 <div>
                                 <div>
                                     < Input
