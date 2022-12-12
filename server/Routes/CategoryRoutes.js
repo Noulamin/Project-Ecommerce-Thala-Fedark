@@ -4,7 +4,7 @@ const {getAllCategories,createCategory,deleteCategory,updateCategory} = require(
 
 
 
-router.get("/",getAllCategories );
+router.get("/",getAllCategories);
 router.post("/add",createCategory );
 router.delete("/delete/:id_categorie",deleteCategory);
 router.put("/edit/:id_categorie",updateCategory);
