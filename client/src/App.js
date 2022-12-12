@@ -2,7 +2,7 @@ import { Routes, Route } from 'react-router-dom';
 import React from 'react';
 import './App.css';
 import Register from './pages/Auth/Register';
-import Home from './pages/Home'
+import HomePage from './pages/HomePage'
 import Login from './pages/Auth/Login'
 import ForgetPassword from './pages/Auth/ForgetPassword';
 import ResetPassword from './pages/Auth/ResetPassword';
@@ -23,11 +23,12 @@ function App() {
       <Routes>
 
         <Route element={<Layout />} >
-          <Route path='/' element={<Home />} />
+          <Route path='/' element={<HomePage />} />
           <Route path='/register' element={<Register />} />
           <Route path='/login' element={<Login />} />
           <Route path='/forgetPassword' element={<ForgetPassword />} />
           <Route path='/resetPassword/:token' element={<ResetPassword />} />
+          <Route path='/client' element={<ProfClient />} />
         </Route>
 
 
