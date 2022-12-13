@@ -37,7 +37,7 @@ const login = asyncHandler(async (req, res) => {
         const token = genToken(user.id_user)
         console.log(token);
         res.cookie('access_token', token)
-        res.status(200).json({
+        .status(200).json({
             id: user.id_user,
             first_Name: user.first_Name,
             last_Name: user.last_Name,
