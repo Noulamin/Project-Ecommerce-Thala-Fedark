@@ -90,9 +90,9 @@ exports.updateProduct = async (req, res) => {
 };
 
 
-// function POST  commentaire selon l'id du produit : (default en cours)
+// function get  commentaire selon l'id du produit : (default en cours)
 /**
- * methode => POST
+ * methode => GET 
  * @Route => /Product/product/:id_categorie
  * access => private
  */
@@ -118,3 +118,6 @@ exports.getProductsByCategorie = async (req,res) => {
 
     }
   } 
+
+
+ 
