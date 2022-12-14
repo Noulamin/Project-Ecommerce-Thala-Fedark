@@ -9,10 +9,10 @@ const ProfClient = () => {
     <>
         <Breadcrumb />
 
-       {role ? <div class="container grid grid-cols-12 items-start gap-6 pt-4 pb-16">
+       {role ? <div className="container grid grid-cols-12 items-start gap-6 pt-4 pb-16">
           <SideBar />
           <InformationForm /> 
-        </div> :  <img className='w-96' style={{ maxWidth : '50%', margin : '0 auto' }} src={window.location.origin + '/assets/images/Safe-bro.png'} alt="logoMarhaba" />}
+        </div> :  <img style={{ maxWidth : '50%', margin : '0 auto' }} src={window.location.origin + '/assets/images/Safe-bro.png'} alt="logoMarhaba" />}
     </>
   )
 }

@@ -18,22 +18,19 @@ const UserModel = db.UserModel;
  */
 const login = asyncHandler(async (req, res) => {
     const { email, password } = req.body;
-    if (!email || !password) {
-        res.status(400)
-        throw new Error('please add all fildes')
-    }
+    if (!email || !password) return res.status(400).send('please add all fildes')
+
 
     const user = await UserModel.findOne({ where: { email } })
     if (!user) return res.status(400).send('User dose not exist')
     console.log(user)
 
     const compPassword = await bcrypt.compare(password, user.password)
-    console.log(user.password);
+    
 
     if (user && compPassword) {
         if (user.Status == false) {
-            res.status(400)
-            throw new Error("your email is not validated")
+           return res.status(400).send("your email is not validated")
         }
         const cookiesExp = new Date(new Date().getTime() + 15 * 60 * 1000);
         const token = genToken(user.id_user)
