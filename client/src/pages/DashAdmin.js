@@ -4,7 +4,7 @@ import SideBar from '../components/Dashboard/SideBar'
 const DashAdmin = () => {
   return (
     <>
-      <SideBar/>
+      <SideBar />
       <main class="main">
         <div class="Container p-4 ">
           <div class="d-flex justify-content-between border-bottom fw-bold fs-4">
@@ -40,7 +40,87 @@ const DashAdmin = () => {
                 </tr>
               </thead>
               <tbody>
+                <tr class="rounded">
+                  <td scope="col"> 45  </td>
+                  <td scope="col"> Ahmed</td>
+                  <td scope="col"> fewwv</td>
+                  <td scope="col"> vwdvwrwv</td>
+                  <td scope="col"> cdscc</td>
+                  <td scope="col"> cdcwdcwc</td>
+                </tr>
 
+                <tr class="rounded">
+                  <td scope="col"> 45  </td>
+                  <td scope="col"> Ahmed</td>
+                  <td scope="col"> fewwv</td>
+                  <td scope="col"> vwdvwrwv</td>
+                  <td scope="col"> cdscc</td>
+                  <td scope="col"> cdcwdcwc</td>
+                </tr>
+
+                <tr class="rounded">
+                  <td scope="col"> 45  </td>
+                  <td scope="col"> Ahmed</td>
+                  <td scope="col"> fewwv</td>
+                  <td scope="col"> vwdvwrwv</td>
+                  <td scope="col"> cdscc</td>
+                  <td scope="col"> cdcwdcwc</td>
+                </tr>
+
+                <tr class="rounded">
+                  <td scope="col"> 45  </td>
+                  <td scope="col"> Ahmed</td>
+                  <td scope="col"> fewwv</td>
+                  <td scope="col"> vwdvwrwv</td>
+                  <td scope="col"> cdscc</td>
+                  <td scope="col"> cdcwdcwc</td>
+                </tr>
+
+                <tr class="rounded">
+                  <td scope="col"> 45  </td>
+                  <td scope="col"> Ahmed</td>
+                  <td scope="col"> fewwv</td>
+                  <td scope="col"> vwdvwrwv</td>
+                  <td scope="col"> cdscc</td>
+                  <td scope="col"> cdcwdcwc</td>
+                </tr>
+
+                <tr class="rounded">
+                  <td scope="col"> 45  </td>
+                  <td scope="col"> Ahmed</td>
+                  <td scope="col"> fewwv</td>
+                  <td scope="col"> vwdvwrwv</td>
+                  <td scope="col"> cdscc</td>
+                  <td scope="col"> cdcwdcwc</td>
+                </tr>
+
+                <tr class="rounded">
+                  <td scope="col"> 45  </td>
+                  <td scope="col"> Ahmed</td>
+                  <td scope="col"> fewwv</td>
+                  <td scope="col"> vwdvwrwv</td>
+                  <td scope="col"> cdscc</td>
+                  <td scope="col"> cdcwdcwc</td>
+                </tr>
+
+                <tr class="rounded">
+                  <td scope="col"> 45  </td>
+                  <td scope="col"> Ahmed</td>
+                  <td scope="col"> fewwv</td>
+                  <td scope="col"> vwdvwrwv</td>
+                  <td scope="col"> cdscc</td>
+                  <td scope="col"> cdcwdcwc</td>
+                </tr>
+
+                <tr class="rounded">
+                  <td scope="col"> 45  </td>
+                  <td scope="col"> Ahmed</td>
+                  <td scope="col"> fewwv</td>
+                  <td scope="col"> vwdvwrwv</td>
+                  <td scope="col"> cdscc</td>
+                  <td scope="col"> cdcwdcwc</td>
+                </tr>
+                
               </tbody>
             </table>
           </div>
@@ -57,15 +137,15 @@ const DashAdmin = () => {
                 <form action="/articles/createArticle" method="post">
                   <div class="mb-3">
                     <label for="amount" class="form-label">title</label>
-                    <input type="text" class="form-control" name="title"/>
+                    <input type="text" class="form-control" name="title" />
                   </div>
                   <div class="mb-3">
                     <label for="amount" class="form-label">url</label>
-                    <input type="text" class="form-control" name="url"/>
+                    <input type="text" class="form-control" name="url" />
                   </div>
                   <div class="mb-3">
                     <label for="amount" class="form-label">contenu</label>
-                    <input type="text" class="form-control" name="contenu"/>
+                    <input type="text" class="form-control" name="contenu" />
                   </div>
                   <select id="recipient_" class="form-control form-control-lg mb-3" name="recipient">
 
