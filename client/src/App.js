@@ -11,7 +11,6 @@ import DashAdmin from './pages/DashAdmin';
 import ProfClient from './pages/ProfClient';
 import Layout from './components/Layout';
 import NotFound from './pages/NotFound';
-import MsgRegisterSucc from './components/MsgRegisterSucc';
 
 
 
@@ -27,7 +26,6 @@ function App() {
         <Route element={<Layout />} >
           <Route path='/' element={<HomePage />} />
           <Route path='/register' element={<Register />} />
-          <Route path='/mesgRegisterSuccess' element={<MsgRegisterSucc/>} />
           <Route path='/login' element={<Login />} />
           <Route path='/forgetPassword' element={<ForgetPassword />} />
           <Route path='/resetPassword/:token' element={<ResetPassword />} />
