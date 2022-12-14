@@ -1,10 +1,6 @@
 const db = require("../Models");
-// const Categorie = db.CategorieModel
+// const Categorie = require("../Models/index").CategorieModel
 const Product = db.ProduitModel;
-
-// const asyncHandler = require('express-async-handler')
-// const sequelize = require('sequelize')
-// const Op = sequelize.Op
 
 exports.getAll = async (req, res) => {
   const Products = await Product.findAll({});
@@ -122,27 +118,3 @@ exports.getProductsByCategorie = async (req,res) => {
 
     }
   } 
-
-
-
-  // exports.searchProduit = asyncHandler(async (req, res) => {
-  //   console.log(req.params.key);
-  //   res.send('search done')
-  //   // let {search} = req.query
-  //   // search = search.toLowerCase()
-  //   // // let categories = await Categorie.findAll({
-  //   // //   raw: true,
-  //   // //   nest: true
-  //   // // })
-  //   // await Product.findAll({
-  //   //   where : {  title_produit : { [Op.like]: `%${search}%` }},
-  //   //   raw: true,
-  //   //   nest: true
-  //   // }).then(produits => {
-  //   //   res.render('index', {
-  //   //     produits, layout: 'main',
-  //   //     page: `Results for ${keyword}`
-  //   //   })
-  //   // }).catch(err => res.send(err))
-  // })
- 
