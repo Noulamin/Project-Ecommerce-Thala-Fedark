@@ -1,5 +1,10 @@
 const db = require("../Models");
+// const Categorie = db.CategorieModel
 const Product = db.ProduitModel;
+
+// const asyncHandler = require('express-async-handler')
+// const sequelize = require('sequelize')
+// const Op = sequelize.Op
 
 exports.getAll = async (req, res) => {
   const Products = await Product.findAll({});
@@ -87,3 +92,57 @@ exports.updateProduct = async (req, res) => {
     data: data,
   });
 };
+
+
+// function POST  commentaire selon l'id du produit : (default en cours)
+/**
+ * methode => POST
+ * @Route => /Product/product/:id_categorie
+ * access => private
+ */
+exports.getProductsByCategorie = async (req,res) => {  
+    try {
+      const idCategorie = req.params
+      console.log(idCategorie);
+      const data = await Product.findAll({
+        where: {
+          categoryIdCategorie : idCategorie.id
+        } 
+      })
+      console.log(data);
+      res
+      .send(data)
+      .status(200)
+      
+    } catch (error) {
+      console.log(error.message);
+      res
+      .json({message: "this categorie is not found"})
+      .status(400)
+
+    }
+  } 
+
+
+
+  // exports.searchProduit = asyncHandler(async (req, res) => {
+  //   console.log(req.params.key);
+  //   res.send('search done')
+  //   // let {search} = req.query
+  //   // search = search.toLowerCase()
+  //   // // let categories = await Categorie.findAll({
+  //   // //   raw: true,
+  //   // //   nest: true
+  //   // // })
+  //   // await Product.findAll({
+  //   //   where : {  title_produit : { [Op.like]: `%${search}%` }},
+  //   //   raw: true,
+  //   //   nest: true
+  //   // }).then(produits => {
+  //   //   res.render('index', {
+  //   //     produits, layout: 'main',
+  //   //     page: `Results for ${keyword}`
+  //   //   })
+  //   // }).catch(err => res.send(err))
+  // })
+ 

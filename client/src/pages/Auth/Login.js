@@ -2,10 +2,9 @@ import React, { useState } from 'react'
 import Input from '../../components/Input'
 import Submit from '../../components/Submit'
 import axios from 'axios'
-// import inputValidation from '../utils/InputValidation'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
-import Header from '../../components/Header'
-import NavBar from '../../components/NavBar'
+
+
 
 
 

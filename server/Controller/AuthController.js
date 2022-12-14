@@ -19,7 +19,8 @@ const UserModel = db.UserModel;
 const login = asyncHandler(async (req, res) => {
     const { email, password } = req.body;
     if (!email || !password) {
-        res.status(400).send('please add all fildes')
+        res.status(400)
+        throw new Error('please add all fildes')
     }
 
     const user = await UserModel.findOne({ where: { email } })
@@ -31,23 +32,26 @@ const login = asyncHandler(async (req, res) => {
 
     if (user && compPassword) {
         if (user.Status == false) {
-            return res.status(400).send("your email is not validated")
+            res.status(400)
+            throw new Error("your email is not validated")
         }
-
+        const cookiesExp = new Date(new Date().getTime() + 15 * 60 * 1000);
         const token = genToken(user.id_user)
         console.log(token);
-        res.cookie('access_token', token)
-        res.status(200).json({
-            id: user.id_user,
-            first_Name: user.first_Name,
-            last_Name: user.last_Name,
-            email: user.email,
-            phone_number: user.phone_number,
-            city: user.city,
-            adresse: user.adresse,
-            message: 'user is logened',
-            role: user.role
+        res.cookie('access_token', token, {
+            expires: cookiesExp
         })
+            .status(200).json({
+                id: user.id_user,
+                first_Name: user.first_Name,
+                last_Name: user.last_Name,
+                email: user.email,
+                phone_number: user.phone_number,
+                city: user.city,
+                adresse: user.adresse,
+                message: 'user is logened',
+                role: user.role
+            })
     } else {
         res.status(400)
             .send('Opps!! Email or Password is not correct')
@@ -67,14 +71,12 @@ const register = asyncHandler(async (req, res) => {
     }
 
     const emailExist = await UserModel.findOne({ where: { email } })
-
     if (emailExist) {
-        res.status(400)
-        throw new Error('Opps!! Email has been already taken')
+        return res.status(400).send('Opps!! Email has been already taken')
     }
 
     const salt = await bcrypt.genSalt(10)
-    const hashPassword = await await bcrypt.hash(password, salt);
+    const hashPassword = await bcrypt.hash(password, salt);
 
 
     const data = {
@@ -101,7 +103,7 @@ const register = asyncHandler(async (req, res) => {
             mess: 'User create successfuly Please check your email for validation'
         })
     } else {
-        throw new Error('samthing is wrong')
+        res.status(400).send('somthing is wrong')
     }
 })
 
@@ -116,9 +118,9 @@ const forgetPassword = asyncHandler(async (req, res) => {
     if (!email) {
         res.status(400).send('Please add your Email')
     }
-    const user = await UserModel.findOne({ email })
+    const user = await UserModel.findOne({ where: { email } })
 
-    if (!user) return res.status(400).send({ err: 'User dose not exist' })
+    if (!user) { return res.status(400).send('User dose not exist') }
 
     const token = genToken(user.id_user)
     console.log(token);
@@ -192,11 +194,11 @@ const logout = asyncHandler(async (req, res) => {
         error.status = 400;
 
     }
-
-    res.clearCookie("access_token", { httpOnly: true });
-    res.status(200).json({
-        success: true,
-    });
+    res.clearCookie("access_token", { httpOnly: true })
+        .localStorage.clear()
+        .status(200).json({
+            success: true,
+        });
 
 
 })
