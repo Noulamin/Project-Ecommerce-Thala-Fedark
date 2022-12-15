@@ -39,7 +39,7 @@ const SideBar = () => {
     {
         Link_checker[4] = css
     }
-    if(Path == "settings")
+    if(Path == "comments")
     {
         Link_checker[5] = css + " link__active"
     }
