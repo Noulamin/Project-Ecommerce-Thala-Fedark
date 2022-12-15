@@ -2,8 +2,6 @@ const db = require("../Models");
 const categories = db.CategorieModel ;
 
 
-
-
 exports.getAllCategories = async (req, res) => {
   try {
     const data = await categories.findAll({});

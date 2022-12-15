@@ -31,21 +31,13 @@ const SideBar = () => {
     {
         Link_checker[3] = css
     }
-    if(Path == "comments")
+    if(Path == "codepromo")
     {
         Link_checker[4] = css + " link__active"
     }
     else
     {
         Link_checker[4] = css
-    }
-    if(Path == "Commands")
-    {
-        Link_checker[6] = css + " link__active"
-    }
-    else
-    {
-        Link_checker[6] = css
     }
     if(Path == "settings")
     {
@@ -54,6 +46,14 @@ const SideBar = () => {
     else
     {
         Link_checker[5] = css
+    }
+    if(Path == "settings")
+    {
+        Link_checker[6] = css + " link__active"
+    }
+    else
+    {
+        Link_checker[6] = css
     }
         
     return (
@@ -105,6 +105,13 @@ const SideBar = () => {
                                         </Link>
                                     </li>
                                     <li class={Link_checker[4]}>
+                                        <Link title="CodePromos" to="/codepromo"
+                                            class="nav-link me-2 d-flex justify-content-center align-items-center gap-3">
+                                            <img class="img24" src="assets/images/coupon.png" alt="Categories" />
+                                            <span>Code Promos</span>
+                                        </Link>
+                                    </li>
+                                    <li class={Link_checker[5]}>
                                         <Link title="Comments" to="/comments"
                                             class="nav-link me-2 d-flex justify-content-center align-items-center gap-3">
                                             <img class="img25" src="assets/images/comment.png" alt="Comments" />
@@ -112,13 +119,6 @@ const SideBar = () => {
                                         </Link>
                                     </li>
                                     <li class={Link_checker[6]}>
-                                        <Link title="Commands" to="#"
-                                            class="nav-link me-2 d-flex justify-content-center align-items-center gap-3">
-                                            <img class="img25" src="assets/images/Commands.png" alt="logout" />
-                                            <span>Commands</span>
-                                        </Link>
-                                    </li>
-                                    <li class={Link_checker[5]}>
                                         <Link title="Settings" to="/settings"
                                             class="nav-link me-2 d-flex justify-content-center align-items-center gap-3">
                                             <img class="img25" src="assets/images/settings.png" alt="Settings" />

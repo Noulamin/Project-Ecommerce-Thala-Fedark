@@ -1,5 +1,5 @@
 import React from 'react'
-import SideBar from '../components/Dashboard/SideBar'
+import SideBar from '../../components/Admin/SideBar'
 
 const DashAdmin = () => {
   
