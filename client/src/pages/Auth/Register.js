@@ -2,6 +2,10 @@ import React, { useState } from 'react'
 import Input from '../../components/Input'
 import Submit from '../../components/Submit'
 import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
+import Swal from 'sweetalert2'
+
+
 // import inputValidation from '../utils/InputValidation'
 
 
@@ -13,7 +17,8 @@ const Register = () => {
     const { first_Name, last_Name, email, password, password2, phone_number, city, adresse } = formData
     const [error, setError] = useState(false)
     const [errorPassword, setErrorPassword] = useState(false)
-    const [result, setResult] = useState('')
+    const navigate = useNavigate()
+    // const MySwal = withReactContent(Swal)
 
     const onChange = (e) => {
         setFormData((prevState) => ({
@@ -36,17 +41,30 @@ const Register = () => {
             setErrorPassword(true)
         }
 
-          axios.post(url, data)
+        axios.post(url, data)
             .then((res) => {
-              console.log(res)
-            // setResult(res.data)
-            //   setMessage(true)
+                console.log(res)
+                Swal.fire({
+                    position: 'center',
+                    icon: 'success',
+                    title: res.data.mess,
+                    showConfirmButton: true
+                })
+                setTimeout(() => {
+                    navigate('/login')
+                }, 3000);
             }).catch((err) => {
-              console.log(err)
-            //   setAlert(err.response.data.message)
-            //   setMessage(false)
+                Swal.fire({
+                    position: 'center',
+                    icon: 'error',
+                    title: err.response.data,
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+                console.log(err.response.data)
+
             })
-        }
+    }
 
 
 
@@ -54,6 +72,7 @@ const Register = () => {
         <>
             <div className="contain py-16">
                 <div className="max-w-lg mx-auto shadow px-6 py-7 rounded overflow-hidden">
+
                     <form onSubmit={(e) => handleSubmit(e)}>
                         <div className="space-y-2">
                             <div className='flex justify-between'>
@@ -98,32 +117,32 @@ const Register = () => {
                             {error && formData.email.length <= 0 ? <p style={{ 'color': 'red', fontSize: '12px' }}> Email can not be empty</p> : ''}
                             <div className='flex justify-between'>
                                 <div>
+                                    <div>
+                                        < Input
+                                            title='Password'
+                                            type='password'
+                                            name='password'
+                                            placeholder='*******'
+                                            onChange={onChange}
+                                            value={password}
+                                        />
+                                    </div>
+                                    {error && formData.password.length <= 0 ? <p style={{ 'color': 'red', fontSize: '12px' }}> Password can not be empty</p> : ''}
+                                </div>
                                 <div>
-                                    < Input
-                                        title='Password'
-                                        type='password'
-                                        name='password'
-                                        placeholder='*******'
-                                        onChange={onChange}
-                                        value={password}
-                                    />
+                                    <div>
+                                        < Input
+                                            title='Confirme Password'
+                                            type='password'
+                                            name='password2'
+                                            placeholder='*******'
+                                            onChange={onChange}
+                                            value={password2}
+                                        />
+                                    </div>
+                                    {error && formData.password2.length <= 0 ? <p className='m-0' style={{ 'color': 'red', fontSize: '12px' }}> Confirme password can not be empty</p> : ''}
+                                    {errorPassword ? <p style={{ 'color': 'red', fontSize: '12px' }}> Password is not match</p> : ''}
                                 </div>
-                                {error && formData.password.length <= 0 ? <p style={{ 'color': 'red', fontSize: '12px' }}> Password can not be empty</p> : ''}
-                                </div>
-                               <div>
-                               <div>
-                                    < Input
-                                        title='Confirme Password'
-                                        type='password'
-                                        name='password2'
-                                        placeholder='*******'
-                                        onChange={onChange}
-                                        value={password2}
-                                    />
-                                </div>
-                                {error && formData.password2.length <= 0 ? <p className='m-0' style={{ 'color': 'red', fontSize: '12px' }}> Confirme password can not be empty</p> : ''}
-                                {errorPassword ? <p style={{ 'color': 'red', fontSize: '12px' }}> Password is not match</p> : ''}
-                               </div>
                             </div>
                             <div>
                                 < Input

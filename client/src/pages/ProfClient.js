@@ -4,13 +4,15 @@ import InformationForm from '../components/Profile/InformationForm'
 import SideBar from '../components/Profile/SideBar'
 
 const ProfClient = () => {
+  const role = localStorage.getItem('role')
   return (
     <>
         <Breadcrumb />
-        <div class="container grid grid-cols-12 items-start gap-6 pt-4 pb-16">
+
+       {role ? <div className="container grid grid-cols-12 items-start gap-6 pt-4 pb-16">
           <SideBar />
           <InformationForm /> 
-        </div>
+        </div> :  <img style={{ maxWidth : '50%', margin : '0 auto' }} src={window.location.origin + '/assets/images/Safe-bro.png'} alt="logoMarhaba" />}
     </>
   )
 }

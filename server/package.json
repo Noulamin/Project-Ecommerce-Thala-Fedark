@@ -4,13 +4,15 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": " node --experimental-vm-modules node_modules/jest/bin/jest.js --verbose --runInBand --forceExit",
-    "start": "nodemon server.js"
+    "start": "concurrently \"npm run server\" \"cd ../client && npm start \"",
+    "server": "nodemon server.js",
+    "test": " node --experimental-vm-modules node_modules/jest/bin/jest.js --verbose --runInBand --forceExit"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",
+    "concurrently": "^7.6.0",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",

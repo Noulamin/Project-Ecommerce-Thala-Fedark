@@ -3,10 +3,12 @@ import React, { useState } from 'react'
 import Submit from '../../components/Submit'
 import { useNavigate, useParams } from 'react-router-dom'
 import Input from '../../components/Input'
+import Swal from 'sweetalert2'
+
 
 
 const ResetPassword = () => {
-    // const navigate = useNavigate()
+    const navigate = useNavigate()
     const [formData, setFormData] = useState({ password: '', password2: '' })
     const { password, password2 } = formData
     const [message, setMessage] = useState('')
@@ -37,12 +39,27 @@ const ResetPassword = () => {
         }
 
         axios.post(url, data)
-            .then((response) => {
-                console.log(response)
-                setMessage(response.data.mess)
+            .then((res) => {
+                Swal.fire({
+                    position: 'center',
+                    icon: 'success',
+                    title: res.data.mess,
+                    showConfirmButton: true
+                })
+                setTimeout(() => {
+                    navigate('/login')
+                }, 1500);
+                console.log(res)
+                setMessage(res.data.mess)
                 // navigate('/message')
 
             }).catch((err) => {
+                Swal.fire({
+                    position: 'center',
+                    icon: 'error',
+                    title: err.response.data,
+                    showConfirmButton: true
+                })
                 console.log(err);
                 setMessage(err.response.data.message)
             })
