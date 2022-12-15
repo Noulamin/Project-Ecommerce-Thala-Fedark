@@ -2,15 +2,9 @@ require('dotenv').config();
 const express = require('express');
 const db = require('./Models')
 const app = express();
-const fileUpload = require("express-fileupload");
 const coockieparser = require('cookie-parser')
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(
-    fileUpload({
-        createParentPath: true,
-    })
-);
 
 app.use(coockieparser())
 const cors = require('cors');
@@ -46,6 +40,8 @@ app.use('/PromoCode', CodePromoRouter)
 app.use('/commentaire' ,commentaireRouter)
 
 app.use('/avis' ,avisRouter)
+app.use(express.static('public'))
+
 
 db.sequelize.sync()
 
