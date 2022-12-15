@@ -1,4 +1,5 @@
 // const { sequelize, Sequelize } = require(".");
+const {   ARRAY} = require('sequelize');
 module.exports = (sequelize, Sequelize) => {
     const produit = sequelize.define('produits', {
         id_produit: {
@@ -10,7 +11,8 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.STRING
         },
         image_produit: {
-            type: Sequelize.STRING
+            type: Sequelize.ARRAY(Sequelize.STRING),
+            allowNull: false
         },
         description_produit: {
             type: Sequelize.STRING
