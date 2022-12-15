@@ -46,7 +46,7 @@ const Login = () => {
       console.log(JSON.stringify(res?.data))
       console.log(res);
       const roles = res?.data?.role
-      // const name = res?.data?.name;
+      
       localStorage.setItem('role', roles)
       localStorage.setItem('email', email)
       navigate(from, { replace: true });
