@@ -1,7 +1,7 @@
 import React from 'react'
 import SideBar from '../../components/Admin/SideBar'
 
-const Products = () => {
+const Commands = () => {
   
   return (
     <>
@@ -9,7 +9,7 @@ const Products = () => {
       <main class="main">
         <div class="Container p-4 ">
           <div class="d-flex justify-content-between border-bottom fw-bold fs-4">
-            <p class="">Products</p>
+            <p class="">Commands</p>
           </div>
           <div class="d-flex justify-content-between">
             <div class="d-flex justify-content-between mt-3 fw-bold">
@@ -166,4 +166,4 @@ const Products = () => {
   )
 }
 
-export default Products
+export default Commands
