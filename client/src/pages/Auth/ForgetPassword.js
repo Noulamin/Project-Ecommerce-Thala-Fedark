@@ -3,6 +3,8 @@ import React, { useState } from 'react'
 import Submit from '../../components/Submit'
 import { useNavigate } from 'react-router-dom'
 import Input from '../../components/Input'
+import Swal from 'sweetalert2'
+
 
 
 
@@ -34,11 +36,27 @@ const ForgetPassword = () => {
     axios.post(url, data, { withCredentials: true })
       .then((res) => {
         console.log(res)
-        // navigate('/message')
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: res.data.mess,
+          showConfirmButton: true
+      })
+      setTimeout(() => {
+          navigate('/login')
+      }, 3000);
 
       }).catch((err) => {
-        console.log(err.response.data.err);
-        setMess(err.response.data.err)
+        Swal.fire({
+          position: 'center',
+          icon: 'error',
+          title: err.response.data,
+          showConfirmButton: true,
+          timer : 1500
+      })
+     
+        console.log(err);
+        setMess(err.response.data)
       })
   }
 
