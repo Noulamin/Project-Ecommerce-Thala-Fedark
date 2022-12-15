@@ -8,7 +8,7 @@ router.delete("/delete/:id_produit", deleteProduct);
 router.put("/edit/:id_produit", updateProduct);
 router.get('/product/:id',getProductsByCategorie)
 
-router.get('/search/:key', searchProduit)
+// router.get('/search/:key', searchProduit)
 
 
 
