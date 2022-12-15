@@ -14,6 +14,7 @@ import Comments from './pages/Comments';
 import Settings from './pages/Settings';
 import ProfClient from './pages/ProfClient';
 import Layout from './components/Layout';
+import LayoutAdmin from './components/LayoutAdmin';
 import NotFound from './pages/NotFound';
 
 
@@ -42,17 +43,21 @@ function App() {
           <Route path='/client' element={<ProfClient />} />
         </Route>
 
-      // admin url = admin Dash Component
-        <Route element={<RequireAuth Roles={["admin"]} />}>
-          <Route path='/admin' element={<DashAdmin />} />
+        <Route element={<LayoutAdmin />}>
+        <Route path='/admin' element={<DashAdmin />} />
           <Route path='/products' element={<Products />} />
           <Route path='/categories' element={<Categories />} />
           <Route path='/comments' element={<Comments />} />
           <Route path='/settings' element={<Settings />} />
         </Route>
 
+      // admin url = admin Dash Component
+        <Route element={<RequireAuth Roles={["admin"]} />}>
+          <Route path='/admin' element={<DashAdmin />} />
+        </Route>
 
-        <Route path='*' element={<NotFound/>} />
+
+        <Route path='*' element={<NotFound />} />
 
       </Routes>
     </>

@@ -5,7 +5,6 @@ const DashAdmin = () => {
 
   return (
     <>
-      <SideBar />
       <main class="main">
         <div class="Container p-4 ">
           <div class="d-flex justify-content-between border-bottom fw-bold fs-4">

@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom';
 
 const SideBar = () => {
     const CurrentPath = `${window.location.pathname}`;
@@ -75,46 +76,46 @@ const SideBar = () => {
                             <nav class="mt-0 mt-5">
                                 <ul class="p-0">
                                     <li class={Link_checker[1]}>
-                                        <a title="Dashboard" href="/admin"
+                                        <Link title="Dashboard" to="/admin"
                                             class="nav-link me-2 d-flex justify-content-center align-items-center gap-3">
                                             <img class="img34" src="assets/images/home.png" alt="Dashboard" />
                                             <span>Dashboard</span>
-                                        </a>
+                                        </Link>
                                     </li>
                                     <li class={Link_checker[2]}>
-                                        <a title="Products" href="/products"
+                                        <Link title="Products" to="/products"
                                             class="nav-link me-2 d-flex justify-content-center align-items-center gap-3">
                                             <img class="img25" src="assets/images/article.png" alt="Products" />
                                             <span>Products</span>
-                                        </a>
+                                        </Link>
                                     </li>
                                     <li class={Link_checker[3]}>
-                                        <a title="Categories" href="/categories"
+                                        <Link title="Categories" to="/categories"
                                             class="nav-link me-2 d-flex justify-content-center align-items-center gap-3">
                                             <img class="img24" src="assets/images/categorie.png" alt="Categories" />
                                             <span>Categories</span>
-                                        </a>
+                                        </Link>
                                     </li>
                                     <li class={Link_checker[4]}>
-                                        <a title="Comments" href="/comments"
+                                        <Link title="Comments" to="/comments"
                                             class="nav-link me-2 d-flex justify-content-center align-items-center gap-3">
                                             <img class="img25" src="assets/images/comment.png" alt="Comments" />
                                             <span>Comments</span>
-                                        </a>
+                                        </Link>
                                     </li>
                                     <li class={Link_checker[5]}>
-                                        <a title="Settings" href="/settings"
+                                        <Link title="Settings" to="/settings"
                                             class="nav-link me-2 d-flex justify-content-center align-items-center gap-3">
                                             <img class="img25" src="assets/images/settings.png" alt="Settings" />
                                             <span>Settings</span>
-                                        </a>
+                                        </Link>
                                     </li>
                                     <li class="ms-0 mb-2 me-3 nav-item d-flex justify-content-start align-items-center">
-                                        <a title="LogOut" href="#"
+                                        <Link title="LogOut" to="#"
                                             class="nav-link me-2 d-flex justify-content-center align-items-center gap-3">
                                             <img class="img25" src="assets/images/logout.png" alt="logout" />
                                             <span>LogOut</span>
-                                        </a>
+                                        </Link>
                                     </li>
                                 </ul>
                             </nav>
@@ -135,13 +136,13 @@ const SideBar = () => {
                 </div>
 
                 <div class="item-admin d-flex justify-content-between gap-3 align-items-center">
-                    <a class="d-flex adminName nav-link text-black pointer m-0">
+                    <Link class="d-flex adminName nav-link text-black pointer m-0" to="/settings">
                         <img class="mx-3" src="assets/images/user.png" width="35px" height="35px" alt="user" />
-                        <span class="mx-1">User Name</span>
-                    </a>
-                    <a href="settings">
+                        <span class="mx-1 my-1">User Name</span>
+                    </Link>
+                    <Link to="/settings">
                         <img className='settings_button' src="assets/images/settings.png" alt="param" />
-                    </a>
+                    </Link>
                 </div>
             </nav>
         </>
