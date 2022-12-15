@@ -7,14 +7,14 @@ import Login from './pages/Auth/Login'
 import ForgetPassword from './pages/Auth/ForgetPassword';
 import ResetPassword from './pages/Auth/ResetPassword';
 import RequireAuth from './utils/RequireAuth';
-import DashAdmin from './pages/DashAdmin';
-import Products from './pages/Products';
-import Categories from './pages/Categories';
-import Comments from './pages/Comments';
-import Settings from './pages/Settings';
+import DashAdmin from './pages/Admin/DashAdmin';
+import Products from './pages/Admin/Products';
+import Categories from './pages/Admin/Categories';
+import Comments from './pages/Admin/Comments';
+import Settings from './pages/Admin/Settings';
 import ProfClient from './pages/ProfClient';
 import Layout from './components/Layout';
-import LayoutAdmin from './components/LayoutAdmin';
+import LayoutAdmin from './components/Admin/LayoutAdmin';
 import NotFound from './pages/NotFound';
 
 
