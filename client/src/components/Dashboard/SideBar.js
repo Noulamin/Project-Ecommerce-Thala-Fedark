@@ -39,6 +39,14 @@ const SideBar = () => {
     {
         Link_checker[4] = css
     }
+    if(Path == "Commands")
+    {
+        Link_checker[6] = css + " link__active"
+    }
+    else
+    {
+        Link_checker[6] = css
+    }
     if(Path == "settings")
     {
         Link_checker[5] = css + " link__active"
@@ -101,6 +109,13 @@ const SideBar = () => {
                                             class="nav-link me-2 d-flex justify-content-center align-items-center gap-3">
                                             <img class="img25" src="assets/images/comment.png" alt="Comments" />
                                             <span>Comments</span>
+                                        </Link>
+                                    </li>
+                                    <li class={Link_checker[6]}>
+                                        <Link title="Commands" to="#"
+                                            class="nav-link me-2 d-flex justify-content-center align-items-center gap-3">
+                                            <img class="img25" src="assets/images/Commands.png" alt="logout" />
+                                            <span>Commands</span>
                                         </Link>
                                     </li>
                                     <li class={Link_checker[5]}>
