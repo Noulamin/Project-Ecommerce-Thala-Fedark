@@ -7,55 +7,49 @@ const SideBar = () => {
     let Link_checker = []
     const css = "ms-0 mb-2 me-3 nav-item d-flex justify-content-start align-items-center"
 
-    if(Path == "admin")
-    {
+    if (Path == "admin") {
         Link_checker[1] = css + " link__active"
     }
-    else
-    {
+    else {
         Link_checker[1] = css
     }
-    if(Path == "products")
-    {
+    if (Path == "products") {
         Link_checker[2] = css + " link__active"
     }
-    else
-    {
+    else {
         Link_checker[2] = css
     }
-    if(Path == "categories")
-    {
+    if (Path == "categories") {
         Link_checker[3] = css + " link__active"
     }
-    else
-    {
+    else {
         Link_checker[3] = css
     }
-    if(Path == "codepromo")
-    {
+    if (Path == "codepromos") {
         Link_checker[4] = css + " link__active"
     }
-    else
-    {
+    else {
         Link_checker[4] = css
     }
-    if(Path == "comments")
-    {
+    if (Path == "commands") {
         Link_checker[5] = css + " link__active"
     }
-    else
-    {
+    else {
         Link_checker[5] = css
     }
-    if(Path == "settings")
-    {
+    if (Path == "comments") {
         Link_checker[6] = css + " link__active"
     }
-    else
-    {
+    else {
         Link_checker[6] = css
     }
-        
+    if (Path == "settings") {
+        Link_checker[7] = css + " link__active"
+    }
+    else {
+        Link_checker[7] = css
+    }
+
     return (
         <>
             <head>
@@ -70,6 +64,13 @@ const SideBar = () => {
                     integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
                     crossorigin="anonymous" />
                 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css" />
+                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+                    integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+                    crossorigin="anonymous"></script>
+                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
+                    integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
+                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+                    integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
             </head>
             <div>
                 <header>
@@ -81,7 +82,7 @@ const SideBar = () => {
                             </a>
                         </div>
                         <div>
-                            <nav class="mt-0 mt-5">
+                            <nav class="mt-0 mt-1">
                                 <ul class="p-0">
                                     <li class={Link_checker[1]}>
                                         <Link title="Dashboard" to="/admin"
@@ -105,20 +106,27 @@ const SideBar = () => {
                                         </Link>
                                     </li>
                                     <li class={Link_checker[4]}>
-                                        <Link title="CodePromos" to="/codepromo"
+                                        <Link title="CodePromos" to="/codepromos"
                                             class="nav-link me-2 d-flex justify-content-center align-items-center gap-3">
                                             <img class="img24" src="assets/images/coupon.png" alt="Categories" />
                                             <span>Code Promos</span>
                                         </Link>
                                     </li>
                                     <li class={Link_checker[5]}>
+                                        <Link title="Commands" to="/commands"
+                                            class="nav-link me-2 d-flex justify-content-center align-items-center gap-3">
+                                            <img class="img25" src="assets/images/command.png" alt="Categories" />
+                                            <span>Commands</span>
+                                        </Link>
+                                    </li>
+                                    <li class={Link_checker[6]}>
                                         <Link title="Comments" to="/comments"
                                             class="nav-link me-2 d-flex justify-content-center align-items-center gap-3">
                                             <img class="img25" src="assets/images/comment.png" alt="Comments" />
                                             <span>Comments</span>
                                         </Link>
                                     </li>
-                                    <li class={Link_checker[6]}>
+                                    <li class={Link_checker[7]}>
                                         <Link title="Settings" to="/settings"
                                             class="nav-link me-2 d-flex justify-content-center align-items-center gap-3">
                                             <img class="img25" src="assets/images/settings.png" alt="Settings" />
