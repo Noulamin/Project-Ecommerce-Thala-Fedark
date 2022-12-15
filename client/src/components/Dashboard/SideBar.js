@@ -1,7 +1,52 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
 
 const SideBar = () => {
+    const CurrentPath = `${window.location.pathname}`;
+    const Path = CurrentPath.substring(1)
+    let Link_checker = []
+    const css = "ms-0 mb-2 me-3 nav-item d-flex justify-content-start align-items-center"
+
+    if(Path == "admin")
+    {
+        Link_checker[1] = css + " link__active"
+    }
+    else
+    {
+        Link_checker[1] = css
+    }
+    if(Path == "products")
+    {
+        Link_checker[2] = css + " link__active"
+    }
+    else
+    {
+        Link_checker[2] = css
+    }
+    if(Path == "categories")
+    {
+        Link_checker[3] = css + " link__active"
+    }
+    else
+    {
+        Link_checker[3] = css
+    }
+    if(Path == "comments")
+    {
+        Link_checker[4] = css + " link__active"
+    }
+    else
+    {
+        Link_checker[4] = css
+    }
+    if(Path == "settings")
+    {
+        Link_checker[5] = css + " link__active"
+    }
+    else
+    {
+        Link_checker[5] = css
+    }
+        
     return (
         <>
             <head>
@@ -29,45 +74,45 @@ const SideBar = () => {
                         <div>
                             <nav class="mt-0 mt-5">
                                 <ul class="p-0">
-                                    <li class="ms-0 mb-2 me-3 nav-item d-flex justify-content-start align-items-center">
-                                        <a title="Dashboard" href="/dash"
+                                    <li class={Link_checker[1]}>
+                                        <a title="Dashboard" href="/admin"
                                             class="nav-link me-2 d-flex justify-content-center align-items-center gap-3">
                                             <img class="img34" src="assets/images/home.png" alt="Dashboard" />
                                             <span>Dashboard</span>
                                         </a>
                                     </li>
-                                    <li class="ms-0 mb-2 me-3 nav-item d-flex justify-content-start align-items-center">
-                                        <a title="Articles" href="/articles"
+                                    <li class={Link_checker[2]}>
+                                        <a title="Products" href="/products"
                                             class="nav-link me-2 d-flex justify-content-center align-items-center gap-3">
-                                            <img class="img25" src="assets/images/article.png" alt="Products"/>
+                                            <img class="img25" src="assets/images/article.png" alt="Products" />
                                             <span>Products</span>
                                         </a>
                                     </li>
-                                    <li class="ms-0 mb-2 me-3 nav-item d-flex justify-content-start align-items-center">
+                                    <li class={Link_checker[3]}>
                                         <a title="Categories" href="/categories"
                                             class="nav-link me-2 d-flex justify-content-center align-items-center gap-3">
-                                            <img class="img24" src="assets/images/categorie.png" alt="Categories"/>
+                                            <img class="img24" src="assets/images/categorie.png" alt="Categories" />
                                             <span>Categories</span>
                                         </a>
                                     </li>
-                                    <li class="ms-0 mb-2 me-3 nav-item d-flex justify-content-start align-items-center">
+                                    <li class={Link_checker[4]}>
                                         <a title="Comments" href="/comments"
                                             class="nav-link me-2 d-flex justify-content-center align-items-center gap-3">
-                                            <img class="img25" src="assets/images/comment.png" alt="Comments"/>
+                                            <img class="img25" src="assets/images/comment.png" alt="Comments" />
                                             <span>Comments</span>
                                         </a>
                                     </li>
-                                    <li class="ms-0 mb-2 me-3 nav-item d-flex justify-content-start align-items-center">
+                                    <li class={Link_checker[5]}>
                                         <a title="Settings" href="/settings"
                                             class="nav-link me-2 d-flex justify-content-center align-items-center gap-3">
-                                            <img class="img25" src="assets/images/settings.png" alt="Settings"/>
+                                            <img class="img25" src="assets/images/settings.png" alt="Settings" />
                                             <span>Settings</span>
                                         </a>
                                     </li>
                                     <li class="ms-0 mb-2 me-3 nav-item d-flex justify-content-start align-items-center">
                                         <a title="LogOut" href="#"
                                             class="nav-link me-2 d-flex justify-content-center align-items-center gap-3">
-                                            <img class="img25" src="assets/images/logout.png" alt="logout"/>
+                                            <img class="img25" src="assets/images/logout.png" alt="logout" />
                                             <span>LogOut</span>
                                         </a>
                                     </li>
