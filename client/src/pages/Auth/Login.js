@@ -2,10 +2,10 @@ import React, { useState } from 'react'
 import Input from '../../components/Input'
 import Submit from '../../components/Submit'
 import axios from 'axios'
-// import inputValidation from '../utils/InputValidation'
+import Swal from 'sweetalert2'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
-import Header from '../../components/Header'
-import NavBar from '../../components/NavBar'
+
+
 
 
 
@@ -46,17 +46,20 @@ const Login = () => {
       console.log(JSON.stringify(res?.data))
       console.log(res);
       const roles = res?.data?.role
-      // const name = res?.data?.name;
+      
       localStorage.setItem('role', roles)
       localStorage.setItem('email', email)
       navigate(from, { replace: true });
-      console.log(from);
 
     } catch (err) {
-      if (err.res?.status === 400) {
-        // setErrMsg('Missing Username or Password');
-      }
-
+      console.log(err);
+      Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title: err.response.data,
+        showConfirmButton: false,
+        timer: 1500
+    })
     }
 
   }
