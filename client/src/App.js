@@ -11,6 +11,7 @@ import DashAdmin from './pages/Admin/DashAdmin';
 import Products from './pages/Admin/Products';
 import Categories from './pages/Admin/Categories';
 import Comments from './pages/Admin/Comments';
+import CodePromo from './pages/Admin/CodePromo';
 import Settings from './pages/Admin/Settings';
 import ProfClient from './pages/ProfClient';
 import Layout from './components/Layout';
@@ -51,6 +52,7 @@ function App() {
             <Route path='/admin' element={<DashAdmin />} />
             <Route path='/products' element={<Products />} />
             <Route path='/categories' element={<Categories />} />
+            <Route path='/codepromo' element={<CodePromo />} />
             <Route path='/comments' element={<Comments />} />
             <Route path='/settings' element={<Settings />} />
           </Route>
