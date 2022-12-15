@@ -1,5 +1,5 @@
 import React from 'react'
-import SideBar from '../components/Dashboard/SideBar'
+import SideBar from '../../components/Admin/SideBar'
 
 const DashAdmin = () => {
   
@@ -9,7 +9,7 @@ const DashAdmin = () => {
       <main class="main">
         <div class="Container p-4 ">
           <div class="d-flex justify-content-between border-bottom fw-bold fs-4">
-            <p class="">Categories</p>
+            <p class="">Comments</p>
           </div>
           <div class="d-flex justify-content-between">
             <div class="d-flex justify-content-between mt-3 fw-bold">
