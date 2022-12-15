@@ -44,17 +44,16 @@ function App() {
           <Route path='/client' element={<ProfClient />} />
         </Route>
 
-        <Route element={<LayoutAdmin />}>
-        <Route path='/admin' element={<DashAdmin />} />
-          <Route path='/products' element={<Products />} />
-          <Route path='/categories' element={<Categories />} />
-          <Route path='/comments' element={<Comments />} />
-          <Route path='/settings' element={<Settings />} />
-        </Route>
 
       // admin url = admin Dash Component
         <Route element={<RequireAuth Roles={["admin"]} />}>
-          <Route path='/admin' element={<DashAdmin />} />
+          <Route element={<LayoutAdmin />}>
+            <Route path='/admin' element={<DashAdmin />} />
+            <Route path='/products' element={<Products />} />
+            <Route path='/categories' element={<Categories />} />
+            <Route path='/comments' element={<Comments />} />
+            <Route path='/settings' element={<Settings />} />
+          </Route>
         </Route>
 
 
