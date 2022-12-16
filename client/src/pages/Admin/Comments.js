@@ -1,7 +1,7 @@
 import React from 'react'
 import SideBar from '../../components/Admin/SideBar'
 
-const DashAdmin = () => {
+const Comments = () => {
   
   return (
     <>
@@ -166,4 +166,4 @@ const DashAdmin = () => {
   )
 }
 
-export default DashAdmin
+export default Comments
