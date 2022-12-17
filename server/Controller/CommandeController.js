@@ -46,7 +46,7 @@ const getCommandLivre = asyncHandler((req, res) => {
 })
 // function to update status  commands livré (updated to livré ):
 /**
- * methode => get
+ * methode => PATCH
  * @Route => /api/admin/command/update/:id
  * access => private
  */
