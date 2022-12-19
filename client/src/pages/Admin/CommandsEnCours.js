@@ -23,7 +23,6 @@ useEffect(() => {
     myFunction()
   }, [])
 
-
 // Style button :
   const style = {
         color: "green"
@@ -36,19 +35,16 @@ useEffect(() => {
   }
 // --------- end button style
 
-
   // Consommmation API update Status Command : 
 
       function UpdateCommand(id) { 
         const API_URL_UPDATE = `http://localhost:8080/api/admin/command/update/${id}`;
         return axios.patch(API_URL_UPDATE , {}).then(res => {
-          console.log(res);
           myFunction()
         }).catch((err) => {
           console.log(err);
         })
       }
-
       
     return (
     <>
