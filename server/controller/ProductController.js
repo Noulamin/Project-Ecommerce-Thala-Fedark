@@ -5,9 +5,17 @@ const asyncHandler = require('express-async-handler')
 const sequelize = require('sequelize')
 const Op = sequelize.Op
 
-exports.getAll = async (req, res) => {
-  const Products = await Product.findAll({});
-  return Products;
+exports.getAllProduct = async (req, res) => {
+  try {
+  const data = await Product.findAll({});
+  res.send(data).status(200)
+} 
+catch (error) 
+{
+    console.log(error);
+    res.json({message: "product is not founded"})
+    .status(400)
+}
 };
 
 exports.getAllProductToRender = async (req, res) => {
@@ -16,19 +24,27 @@ exports.getAllProductToRender = async (req, res) => {
     Products: data,
   });
 };
+
+
 //creat product :
 
 exports.createProduct = async (req, res) => {
 
+  const image_produit = [];
+  req.files.forEach((filePath) => {
+  const path = filePath.path.split("\\")
+  const imgPath = "/" + path[1] + "/" + path[2];
+  image_produit.push(imgPath);
+  });
+  console.log("hhhhhhhhhhhhhhh"+image_produit)
   try {
     const data = await Product.create({
       title_produit: req.body.title_produit,
+      image_produit: image_produit,
       description_produit: req.body.description_produit,
-      image_produit: req.body.image_produit,
       prix_produit: req.body.prix_produit,
       stock_produit: req.body.stock_produit,
       pourcentage_produit: req.body.pourcentage_produit,
-      categoryIdCategorie : req.body.categorie
     });
     console.log(data);
     res.send({
@@ -111,7 +127,7 @@ exports.getProductsByCategorie = async (req,res) => {
       })
       console.log(data);
       res
-      .send(data)
+      .json(data)
       .status(200)
       
     } catch (error) {
@@ -124,8 +140,7 @@ exports.getProductsByCategorie = async (req,res) => {
   } 
 
 
- 
-/**
+  /**
 * methode => GET 
 * @Route => /Product/search
 * access => public
@@ -154,3 +169,4 @@ exports.searchProduit = asyncHandler(async (req, res) => {
   }
 
 })
+ 

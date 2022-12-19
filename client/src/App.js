@@ -7,9 +7,16 @@ import Login from './pages/Auth/Login'
 import ForgetPassword from './pages/Auth/ForgetPassword';
 import ResetPassword from './pages/Auth/ResetPassword';
 import RequireAuth from './utils/RequireAuth';
-import DashAdmin from './pages/DashAdmin';
+import DashAdmin from './pages/Admin/DashAdmin';
+import Products from './pages/Admin/Products';
+import Categories from './pages/Admin/Categories';
+import Commands from './pages/Admin/Commands';
+import Comments from './pages/Admin/Comments';
+import CodePromo from './pages/Admin/CodePromo';
+import Settings from './pages/Admin/Settings';
 import ProfClient from './pages/ProfClient';
 import Layout from './components/Layout';
+import LayoutAdmin from './components/Admin/LayoutAdmin';
 import NotFound from './pages/NotFound';
 
 
@@ -39,13 +46,22 @@ function App() {
           <Route path='/client' element={<ProfClient />} />
         </Route>
 
+
       // admin url = admin Dash Component
         <Route element={<RequireAuth Roles={["admin"]} />}>
-          <Route path='/admin' element={<DashAdmin />} />
+          <Route element={<LayoutAdmin />}>
+            <Route path='/admin' element={<DashAdmin />} />
+            <Route path='/products' element={<Products />} />
+            <Route path='/categories' element={<Categories />} />
+            <Route path='/codepromos' element={<CodePromo />} />
+            <Route path='/commands' element={<Commands />} />
+            <Route path='/comments' element={<Comments />} />
+            <Route path='/settings' element={<Settings />} />
+          </Route>
         </Route>
 
 
-        <Route path='*' element={<NotFound/>} />
+        <Route path='*' element={<NotFound />} />
 
       </Routes>
     </>
