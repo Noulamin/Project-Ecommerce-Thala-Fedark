@@ -9,11 +9,8 @@ const asyncHandler = require("express-async-handler");
  * access => private
  */
 const getAllCommand = asyncHandler((req, res) => {
-  Command.findAll({
-    where: {
-      status: 'en cours'
-    }
-  })
+  Command.findAll({}
+  )
     .then((data) => {
       res.json(data)
         .status(200)
@@ -23,27 +20,7 @@ const getAllCommand = asyncHandler((req, res) => {
       })
     })
 })
-// function to retrieve all commands livré (updated to livré ):
-/**
- * methode => get
- * @Route => api/admin/commandslivrer
- * access => private
- */
-const getCommandLivre = asyncHandler((req, res) => {
-  Command.findAll({
-    where: {
-      status: 'livré'
-    }
-  })
-    .then((data) => {
-      res.json(data)
-        .status(200)
-    }).catch((err) => {
-      res.status(400).json({
-        error: err.message
-      })
-    })
-})
+
 // function to update status  commands livré (updated to livré ):
 /**
  * methode => PATCH
@@ -78,9 +55,4 @@ const updateStatus = asyncHandler((req, res) => {
     });
 });
 
-
-
-
-
-
-module.exports = { getAllCommand, getCommandLivre, updateStatus }
+module.exports = { getAllCommand, updateStatus }
