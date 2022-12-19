@@ -1,7 +1,6 @@
 import React from 'react'
 import SideBar from '../../components/Admin/SideBar'
 import CommandsEnCours from './CommandsEnCours'
-import CommandsLivre from './CommandsLivre'
 
 const Commands = () => {
   
@@ -11,7 +10,6 @@ const Commands = () => {
       <main class="main">
         <div class="Container p-4 ">
           <CommandsEnCours />
-          <CommandsLivre />
         </div>
         <div class="modal fade" id="send_to" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="staticBackdropLabel" aria-hidden="true">
           <div class="modal-dialog">

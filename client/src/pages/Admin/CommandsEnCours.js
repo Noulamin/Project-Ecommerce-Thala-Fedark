@@ -1,27 +1,30 @@
 import axios from 'axios'
-import { useState , useEffect } from 'react'
-import {Link} from 'react-router-dom'
+import { useState , useEffect , } from 'react'
 
 
 function CommandsEnCours() {
 
+  // api get Command Info EN cours: 
   const [CommandInfo,SetCommandInfos] = useState([])
-  const [Status, SetStatus] = useState([])
 
   const API_URL = "http://localhost:8080/api/admin/commands"
 
-
   function getCommandsInfos() {
       return axios.get(API_URL)
-  }
+      }
 
-  useEffect(() => {
-    getCommandsInfos().then(response => {
-    SetCommandInfos(response.data)
-    })
+      function myFunction(){
+        getCommandsInfos().then(response => {
+          SetCommandInfos(response.data)
+          })
+      }
+
+useEffect(() => {
+    myFunction()
   }, [])
 
 
+// Style button :
   const style = {
         color: "green"
   }
@@ -31,7 +34,23 @@ function CommandsEnCours() {
       padding: 6,
       borderRadius: 7,
   }
-  return (
+// --------- end button style
+
+
+  // Consommmation API update Status Command : 
+
+      function UpdateCommand(id) { 
+        const API_URL_UPDATE = `http://localhost:8080/api/admin/command/update/${id}`;
+        return axios.patch(API_URL_UPDATE , {}).then(res => {
+          console.log(res);
+          myFunction()
+        }).catch((err) => {
+          console.log(err);
+        })
+      }
+
+      
+    return (
     <>
     <div class="d-flex justify-content-between border-bottom fw-bold fs-4">
             <p class="">Commands en cours</p>
@@ -55,7 +74,8 @@ function CommandsEnCours() {
             <td>{command.montant}</td>
             <td style={style}>{command.status}</td>
             <td>{command.date_livraison}</td>
-            <td><button   style={button}>Update Status Command</button></td>
+            <td>
+              <button style={button} onClick={() => {UpdateCommand(command.id_command)}}>Update Status Command</button></td>
           </tr>
         ))}
       </tbody>

@@ -124,7 +124,7 @@ exports.getProductsByCategorie = async (req,res) => {
       })
       console.log(data);
       res
-      .send(data)
+      .json(data)
       .status(200)
       
     } catch (error) {
