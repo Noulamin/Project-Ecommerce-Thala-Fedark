@@ -28,6 +28,7 @@ exports.createProduct = async (req, res) => {
       prix_produit: req.body.prix_produit,
       stock_produit: req.body.stock_produit,
       pourcentage_produit: req.body.pourcentage_produit,
+      categoryIdCategorie : req.body.categorie
     });
     console.log(data);
     res.send({
