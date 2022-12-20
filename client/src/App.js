@@ -18,6 +18,7 @@ import ProfClient from './pages/ProfClient';
 import Layout from './components/Layout';
 import LayoutAdmin from './components/Admin/LayoutAdmin';
 import NotFound from './pages/NotFound';
+import ProductDetails from './components/Home/ProductDetails';
 
 
 
@@ -37,6 +38,7 @@ function App() {
           <Route path='/forgetPassword' element={<ForgetPassword />} />
           <Route path='/resetPassword/:token' element={<ResetPassword />} />
           <Route path='/client' element={<ProfClient />} />
+          <Route path='/productDetails' element={<ProductDetails />} />
         </Route>
 
 
