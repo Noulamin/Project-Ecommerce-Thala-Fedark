@@ -40,7 +40,7 @@ useEffect(() => {
       function UpdateCommand(id) { 
         const API_URL_UPDATE = `http://localhost:8080/api/admin/command/update/${id}`;
         return axios.patch(API_URL_UPDATE , {}).then(res => {
-          myFunction()
+          myFunction()()
         }).catch((err) => {
           console.log(err);
         })
