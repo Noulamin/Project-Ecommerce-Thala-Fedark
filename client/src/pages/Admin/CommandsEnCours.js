@@ -49,12 +49,12 @@ useEffect(() => {
     return (
     <>
     <div class="d-flex justify-content-between border-bottom fw-bold fs-4">
-            <p class="">Commands en cours</p>
+            <p className="">Commands en cours</p>
           </div>            
-          <div class="table-responsive card p-2">
-            <table class="table table-striped Table_responsive">
+          <div className="table-responsive card p-2">
+            <table className="table table-striped Table_responsive">
               <thead>
-                <tr class="rounded tr_table">
+                <tr className="rounded tr_table">
                   <th scope="col">Numéro du Commande</th>
                   <th scope="col">Quantité</th>
                   <th scope="col">Montant</th>
