@@ -24,6 +24,7 @@ import NotFound from './pages/NotFound';
 
 
 
+
 function App() {
   return (
     <>
@@ -36,6 +37,7 @@ function App() {
           <Route path='/forgetPassword' element={<ForgetPassword />} />
           <Route path='/resetPassword/:token' element={<ResetPassword />} />
           <Route path='/client' element={<ProfClient />} />
+       
         </Route>
 
 
