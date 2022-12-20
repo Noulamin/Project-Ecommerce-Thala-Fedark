@@ -6,6 +6,7 @@ const sequelize = require('sequelize')
 const Op = sequelize.Op
 
 exports.getAllProduct = async (req, res) => {
+  const size = 8
   try {
   const data = await Product.findAll({});
   res.send(data).status(200)
@@ -36,7 +37,7 @@ exports.createProduct = async (req, res) => {
   const imgPath = "/" + path[1] + "/" + path[2];
   image_produit.push(imgPath);
   });
-  console.log("hhhhhhhhhhhhhhh"+image_produit)
+  console.log("hhhhhhhhhhhhhhh"+ image_produit)
   try {
     const data = await Product.create({
       title_produit: req.body.title_produit,
@@ -45,6 +46,7 @@ exports.createProduct = async (req, res) => {
       prix_produit: req.body.prix_produit,
       stock_produit: req.body.stock_produit,
       pourcentage_produit: req.body.pourcentage_produit,
+      categorie : req.body.categoryIdCategorie
     });
     console.log(data);
     res.send({
