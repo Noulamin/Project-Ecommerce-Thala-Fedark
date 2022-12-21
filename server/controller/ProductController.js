@@ -6,7 +6,6 @@ const sequelize = require('sequelize')
 const Op = sequelize.Op
 
 exports.getAllProduct = async (req, res) => {
-  const size = 8
   try {
   const data = await Product.findAll({});
   res.send(data).status(200)
@@ -37,7 +36,7 @@ exports.createProduct = async (req, res) => {
   const imgPath = "/" + path[1] + "/" + path[2];
   image_produit.push(imgPath);
   });
-  console.log("hhhhhhhhhhhhhhh"+ image_produit)
+  console.log("hhhhhhhhhhhhhhh"+image_produit)
   try {
     const data = await Product.create({
       title_produit: req.body.title_produit,
@@ -46,7 +45,6 @@ exports.createProduct = async (req, res) => {
       prix_produit: req.body.prix_produit,
       stock_produit: req.body.stock_produit,
       pourcentage_produit: req.body.pourcentage_produit,
-      categorie : req.body.categoryIdCategorie
     });
     console.log(data);
     res.send({
@@ -171,12 +169,30 @@ exports.searchProduit = asyncHandler(async (req, res) => {
   }
 
 })
+ 
+
 
   /**
 * methode => GET 
-* @Route => /Product/:id
+* @Route => /api//product/details/:id
 * access => public
 */
+exports.getProductById = async (req,res) => {
+  const id_produit = req.params.id
+  if(!id_produit || NaN){
+    res.json({message: "this product is not found !"})
+    .status(400)
+  }
+  try {
+    const data = await Product.findOne({where: {
+      id_produit : id_produit
+    }})
+    res.json({data})
+    .status(200)
+  } catch (error) {
+    res.json({message: "this product is not Found !"})
+    .status(400)
+  }  
+}
 
 
- 

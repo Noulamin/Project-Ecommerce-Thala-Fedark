@@ -10,6 +10,7 @@ const Products = () => {
     const [product, setProduct] = useState([]);
     const [currentProd, setCurrentProd] = useState(1);
     const [prodPerPage, setProdPerPage] = useState(8);
+    const [cart, setCart] = useState([]);
 
     const indexOfLastProd = currentProd * prodPerPage
     const indexOfFirstProd = indexOfLastProd - prodPerPage
@@ -28,8 +29,6 @@ const Products = () => {
                 .then(res => {
                     console.log(res.data)
                     setProduct(res.data)
-                    
-
                 })
                 .catch(err => {
                     console.log(err);
@@ -41,16 +40,36 @@ const Products = () => {
 
     const paginate = pageNumber => setCurrentProd(pageNumber);
 
-
-    const hundleClick = () => {
-        console.log()
+    // for (let i = 0; i < currentProduct.length; i++) {
+    //     console.log(currentProduct[i]);
+    // }
+    
+    // const URL = `http://localhost:8080/product/details/${id}`
+    const hundleClick = async (id_produit) => {
+        // console.log(id_Prod);
+        try {
+        await axios.get(`http://localhost:8080/api/product/details/${id_produit}`)
+        .then(response => {
+            console.log(response.data.data);
+            const prod = response.data.data
+            // setCart([...cart, prod])
+            cart.push(prod)
+            console.log(cart);
+            localStorage.setItem('dataKey', JSON.stringify(cart))
+           
+        })
+        .catch(err => {
+            console.log(err);
+        })
+       } catch (error) {
+        console.log(error);
+       }
     }
 
 
 
     return (
         <>
-
             <div className="container pb-16">
                 <h2 className="text-2xl font-medium text-gray-800 uppercase mb-6">recomended for you</h2>
                 <div className="grid grid-cols-4 gap-6">
@@ -84,7 +103,7 @@ const Products = () => {
                                     <div className="text-xs text-gray-500 ml-3">Stock ({prod.stock_produit}) </div>
                                 </div>
                             </div>
-                            <button onClick={() => hundleClick()} className="block w-full py-1 text-center text-white bg-primary border border-primary rounded-b hover:bg-transparent hover:text-primary transition">Add to cart</button>
+                            <button onClick={() => hundleClick([prod.id_produit])} className="block w-full py-1 text-center text-white bg-primary border border-primary rounded-b hover:bg-transparent hover:text-primary transition">Add to cart</button>
                         </div>
                     )}
 
