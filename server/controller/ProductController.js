@@ -171,4 +171,12 @@ exports.searchProduit = asyncHandler(async (req, res) => {
   }
 
 })
+
+  /**
+* methode => GET 
+* @Route => /Product/:id
+* access => public
+*/
+
+
  
