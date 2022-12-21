@@ -38,7 +38,7 @@ app.use('/api/admin', commandRouter)
 app.use('/PromoCode', CodePromoRouter)
 
 app.use('/commentaire' ,commentaireRouter)
-
+app.use('/api',ProductRoutes)
 app.use('/avis' ,avisRouter)
 app.use(express.static('public'))
 

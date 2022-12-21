@@ -21,7 +21,7 @@ function AllCategories() {
                 setCategory(response.data)
             })
             .catch(e => {
-              console.log(e);
+              console.log(e)
             });
         } catch (err) {
             console.log(err);
