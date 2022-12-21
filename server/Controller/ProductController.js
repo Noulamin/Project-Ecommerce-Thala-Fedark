@@ -170,3 +170,29 @@ exports.searchProduit = asyncHandler(async (req, res) => {
 
 })
  
+
+
+  /**
+* methode => GET 
+* @Route => /api//product/details/:id
+* access => public
+*/
+exports.getProductById = async (req,res) => {
+  const id_produit = req.params.id
+  if(!id_produit || NaN){
+    res.json({message: "this product is not found !"})
+    .status(400)
+  }
+  try {
+    const data = await Product.findOne({where: {
+      id_produit : id_produit
+    }})
+    res.json({data})
+    .status(200)
+  } catch (error) {
+    res.json({message: "this product is not Found !"})
+    .status(400)
+  }  
+}
+
+
