@@ -11,6 +11,7 @@ const Products = () => {
     const [currentProd, setCurrentProd] = useState(1);
     const [prodPerPage, setProdPerPage] = useState(8);
     const [cart, setCart] = useState([]);
+    const [idPr, setIdPr] = useState('');
 
     const indexOfLastProd = currentProd * prodPerPage
     const indexOfFirstProd = indexOfLastProd - prodPerPage
@@ -52,6 +53,12 @@ const Products = () => {
         .then(response => {
             console.log(response.data.data);
             const prod = response.data.data
+           
+            // console.log(Object.keys(prod))
+            // localStorage.setItem('data', JSON.stringify([prod]))
+
+           
+            
             // setCart([...cart, prod])
             cart.push(prod)
             console.log(cart);
@@ -91,7 +98,7 @@ const Products = () => {
                                 </div>
                             </div>
                             <div className="pt-4 pb-3 px-4">
-                                <Link to="productDetails">
+                                <Link to= {`productDetails/${prod.id_produit}`}>
                                     <h4 className="uppercase font-medium text-xl mb-2 text-gray-800 hover:text-primary transition">{prod.title_produit} </h4>
                                 </Link>
                                 <div className="flex items-baseline mb-1 space-x-2">
@@ -103,7 +110,7 @@ const Products = () => {
                                     <div className="text-xs text-gray-500 ml-3">Stock ({prod.stock_produit}) </div>
                                 </div>
                             </div>
-                            <button onClick={() => hundleClick([prod.id_produit])} className="block w-full py-1 text-center text-white bg-primary border border-primary rounded-b hover:bg-transparent hover:text-primary transition">Add to cart</button>
+                            <button onClick={() => hundleClick(prod.id_produit)} className="block w-full py-1 text-center text-white bg-primary border border-primary rounded-b hover:bg-transparent hover:text-primary transition">Add to cart</button>
                         </div>
                     )}
 
