@@ -23,6 +23,8 @@ const categorieRoutes = require('./Routes/CategoryRoutes')
 const commandRouter = require('./Routes/CommandRouter.js')
 const CodePromoRouter = require('./Routes/CodePromosRoutes')
 
+app.use(express.static('public'))
+
 app.use('/api/user', clientRouter)
 
 app.use('/api/user', adminRouter)
@@ -40,7 +42,6 @@ app.use('/PromoCode', CodePromoRouter)
 app.use('/commentaire' ,commentaireRouter)
 
 app.use('/avis' ,avisRouter)
-app.use(express.static('public'))
 
 
 db.sequelize.sync()

@@ -316,16 +316,12 @@ New Code Promo
                  
                   </a>
                 </td>
-
-
                 <td>
                   <a href='#' className='text-dark fw-bold text-hover-primary d-block mb-1 fs-6'>
                 
                   </a>
                   <span className='text-muted fw-semibold text-muted d-block fs-7'> {item.id}</span>
                 </td>
-
-                
                 <td>
                   <a href='#' className='text-dark fw-bold text-hover-primary d-block mb-1 fs-6'>
                   {item.code_promo}

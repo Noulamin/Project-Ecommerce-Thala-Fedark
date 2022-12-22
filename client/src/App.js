@@ -10,6 +10,7 @@ import RequireAuth from './utils/RequireAuth';
 import DashAdmin from './pages/Admin/DashAdmin';
 import Products from './pages/Admin/Products';
 import Categories from './pages/Admin/Categories';
+import Commands from './pages/Admin/Commands';
 import Comments from './pages/Admin/Comments';
 import CodePromo from './pages/Admin/CodePromo';
 import Settings from './pages/Admin/Settings';
@@ -54,7 +55,8 @@ function App() {
             <Route path='/admin' element={<DashAdmin />} />
             <Route path='/products' element={<Products />} />
             <Route path='/categories' element={<Categories />} />
-            <Route path='/codepromo' element={<CodePromo />} />
+            <Route path='/codepromos' element={<CodePromo />} />
+            <Route path='/commands' element={<Commands />} />
             <Route path='/comments' element={<Comments />} />
             <Route path='/settings' element={<Settings />} />
           </Route>

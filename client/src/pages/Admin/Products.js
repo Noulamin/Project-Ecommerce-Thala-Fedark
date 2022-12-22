@@ -3,89 +3,90 @@ import axios from 'axios'
 import { useState, useEffect } from 'react'
 import SideBar from '../../components/Admin/SideBar'
 
-
-
-
-
 const DashAdmin = ({ className }) => {
 
-  const style = {
-    position: 'absolute',
-    top: '12px',
-    left: '68px',
-  }
-
-  const [Product, setProduct] = useState([])
-  const [showModal, setShowModal] = React.useState(false);
+  
+  const [db, setDb] = useState([])
+  const [showModal, setShowModal] =useState(false);
   const [title_produit, SetTitle_produit] = useState('')
-  const [update, SetUpdate] = useState('')
-  const [Image_produit, setImage_produit] = useState('')
-  const [Description_produit, setDescription_produit] = useState("")
-  const [Prix_produit, setPrix_produit] = useState("")
-  const [Stock_produit, setStock_produit] = useState("")
-  const [Pourcentage_produit, setPourcentage_produit] = useState("")
+  // const [update, SetUpdate] = useState('')
+  const [image_produit, setImage_produit] = useState('')
+  const [description_produit, setDescription_produit] = useState("")
+  const [prix_produit, setPrix_produit] = useState("")
+  const [stock_produit, setStock_produit] = useState("")
+  const [pourcentage_produit, setPourcentage_produit] = useState("")
 
 
 
   function toggleModal() {
     setShowModal(!showModal);
   }
-  const getAllProduct = async () => {
+  const getAllProduct = () => {
 
-    const res = await axios.get('http://localhost:8080/Product/getAllProduct')
-    setProduct(res.data)
+    axios.get('http://localhost:8080/Product/getAllProduct')
+      .then(response => {
+        console.log(response.data);
+        // setDb(response.data)
+        let db = response.data
+        // db.map(e => console.log(Object.values(e.image_produit)))
+        db.forEach(e => {
+          e.image_produit = e.image_produit.split(',').map(e => e.replace(/\W/g, '').replace('images', 'images/').replace('jpg', '.jpg'))
+        });
+
+        setDb(db)
+      })
+      .catch(err => {
+        console.log(err);
+      })
   }
 
   useEffect(() => {
     getAllProduct()
-    SetUpdate('all data')
-  }, [update])
-  console.log(Product)
-
-
-  const getProduct = (e) => {
-
+    // SetUpdate('all data')
+  }, [])
+  // console.log(db)
+  const createProduct = (e) => {
     axios.post('http://localhost:8080/Product/add', {
 
       title_produit: title_produit,
-      Image_produit: Image_produit,
-      Description_produit: Description_produit,
-      Prix_produit: Prix_produit,
-      Stock_produit: Stock_produit,
-      Pourcentage_produit: Pourcentage_produit
+      image_produit: image_produit,
+      description_produit: description_produit,
+      prix_produit: prix_produit,
+      stock_produit: stock_produit,
+      pourcentage_produit: pourcentage_produit
+
     })
-      .then(result => {
-        SetUpdate('add data')
-        console.log(result)
-
+      .then(response => {
+        console.log(response.data);
+        setDb(response.data)
       })
       .catch(err => {
-        console.log(err)
-
+        console.log(err);
       })
   }
-  const deleteProduct = (id) => {
-    // Simple DELETE request with axios
-    axios.delete(`http://localhost:8080/api/Product/delete/${id}`)
-      .then(result => {
-        SetUpdate('delete data')
-        console.log(result)
-      })
-      .catch(err => {
-        console.log(err)
+  // const deleteProduct = (id) => {
+  //   // Simple DELETE request with axios
+  //   axios.delete(`http://localhost:8080/Product/delete/${id}`)
+  //     .then(result => {
+  //       SetUpdate('delete data')
+  //       console.log(result)
+  //     })
+  //     .catch(err => {
+  //       console.log(err)
 
-      })
+  //     })
 
-  }
+  // }
 
 
   return (
     <>
       <SideBar />
-      <main class={`main ${className}`}>
+      <main class={`main`}>
         <div class="Container p-4 ">
           <div class="d-flex justify-content-between border-bottom fw-bold fs-4">
             <p class="">Products</p>
+            <button onClick={getAllProduct}>gett All</button>
           </div>
           <div class="d-flex justify-content-between">
             <div class="d-flex justify-content-between mt-3 fw-bold">
@@ -109,43 +110,45 @@ const DashAdmin = ({ className }) => {
             <table class="table table-striped Table_responsive">
               <thead>
                 <tr class="rounded tr_table">
-                  <th scope="col">title_produit</th>
-                  <th scope="col"> Description_produit</th>
-                  <th scope="col">Prix_produit</th>
-                  <th scope="col">Stock_produit</th>
-                  <th scope="col"> Pourcentage_produit</th>
-                  <th scope="col">Image_produit</th>
-                  <th scope="col">delete</th>
-                  <th scope="col">update</th>
+                  <td scope="col">Image_produit</td>
+                  <td scope="col">title_produit</td>
+                  <td scope="col">Description_produit</td>
+                  <td scope="col">Prix_produit</td>
+                  <td scope="col">Stock_produit</td>
+                  <td scope="col"> Pourcentage_produit</td>
+                  <td scope="col">update</td>
+                  <td scope="col">delete</td>
                 </tr>
               </thead>
               <tbody>
-                {Product.map((item) => (
-                  <tr key={item.id} class="rounded">
-                    <td scope="col"> {item.title_produit} </td>
-                    <td scope="col">  {item.Description_produit}</td>
-                    <td scope="col">  {item.Prix_produit}</td>
-                    <td scope="col"> {item.Stock_produit}</td>
-                    <td scope="col"> {item.Pourcentage_produit}</td>
-                    <td scope="col"> {item.Image_produit}</td>
-                    <td scope="col"> vwdvwrwv</td>  <td className='text-end'>
-                      <a
-                        href='#'
-                        className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1'
-                      >
-                        <svg path='/media/icons/duotune/general/gen019.svg' className='svg-icon-3' />
-                      </a>
-                      <a
-                        href='#'
-                        className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1'
-                      >
-                        <svg path='/media/icons/duotune/art/art005.svg' className='svg-icon-3' />
-                      </a>
-                      <a href='#' onClick={() => deleteProduct(item.id)} className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm' >
-                        <svg path='/media/icons/duotune/general/gen027.svg' className='svg-icon-3' />
-                      </a>
+                {db.map((item) => (
+                  
+                  <tr class="rounded">
+                    
+                    <td scope="col">
+                      {item.image_produit.map((img) => (
+                        <img
+                          src={`http://localhost:8080/${img}`}
+                          className=''
+                          alt=''
+                        />
+                      ))}
                     </td>
-                    <td scope="col"> cdcwdcwc</td>
+                    <td scope="col"> {item.title_produit} </td>
+                    <td scope="col"> {item.description_produit}</td>
+                    <td scope="col"> {item.prix_produit}</td>
+                    <td scope="col"> {item.stock_produit}</td>
+                    <td scope="col"> {item.pourcentage_produit}</td>
+
+                    <td scope='cole'>
+                    <button type="button" class="inline-block px-6 py-2.5 bg-gray-800 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-gray-900 hover:shadow-lg focus:bg-gray-900 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-900 active:shadow-lg transition duration-150 ease-in-out">updatte</button>
+
+                    </td>
+                    <td scope='cole'>
+                    <button type="button" class="inline-block px-6 py-2.5 bg-gray-800 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-gray-900 hover:shadow-lg focus:bg-gray-900 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-900 active:shadow-lg transition duration-150 ease-in-out">Delete</button>
+
+                    </td>
+
                   </tr>
                 ))}
               </tbody>
@@ -171,40 +174,40 @@ const DashAdmin = ({ className }) => {
 
         <div>
 
-          <div className='blour' style={{}}>
-            <div class="flex justify-center" style={style}>
+          <div className='blour' >
+            <div class="flex justify-center" >
               <div class="flex flex-col md:flex-row md:max-w-xl rounded-lg bg-white shadow-lg">
                 {showModal && (
 
                   <div className="modal-content">
-                    <form action="" method="post" style={{ width: '35rem' }}>
+                    <form enctype="multipart/form-data" method=" post" onSubmit={createProduct} >
                       <div class="mb-3">
                         <label for="amount" class="form-label">title_produit</label>
                         <input type="text" class="form-control" name="title_produit" value={title_produit} onChange={(e) => SetTitle_produit(e.target.value)} />
                       </div>
                       <div class="mb-3">
                         <label for="amount" class="form-label">Description_produit</label>
-                        <input type="text" class="form-control" name="Description_produit" value={Description_produit} onChange={(e) => setDescription_produit(e.target.value)} />
+                        <input type="text" class="form-control" name="description_produit" value={description_produit} onChange={(e) => setDescription_produit(e.target.value)} />
                       </div>
 
                       <div class="mb-3">
                         <label for="amount" class="form-label">Prix_produit</label>
-                        <input type="text" class="form-control" name="Prix_produit" value={Prix_produit} onChange={(e) => setPrix_produit(e.target.value)} />
+                        <input type="text" class="form-control" name="prix_produit" value={prix_produit} onChange={(e) => setPrix_produit(e.target.value)} />
                       </div>
                       <div class="mb-3">
                         <label for="amount" class="form-label">Stock_produit</label>
-                        <input type="text" class="form-control" name="Stock_produit" value={Stock_produit} onChange={(e) => setStock_produit(e.target.value)} />
+                        <input type="text" class="form-control" name="stock_produit" value={stock_produit} onChange={(e) => setStock_produit(e.target.value)} />
                       </div>
                       <div class="mb-3">
                         <label for="amount" class="form-label">Pourcentage_produit</label>
-                        <input type="text" class="form-control" name="Pourcentage_produit" value={Pourcentage_produit} onChange={(e) => setPourcentage_produit(e.target.value)} />
+                        <input type="text" class="form-control" name="pourcentage_produit" value={pourcentage_produit} onChange={(e) => setPourcentage_produit(e.target.value)} />
                       </div>
-                      <div class="mb-3">
-                        <label for="amount" class="form-label">Image_produit</label>
-                        <input type="file" class="form-control" name="Image_produit" value={Image_produit} onChange={(e) => setImage_produit(e.target.value)} />
+                      <div className="image-upload">
+
+                        <input id="file-input" type="file" accept=".png, .jpg, .jpeg" name="image" value={image_produit} onChange={(e) => setImage_produit(e.target.value)} />
                       </div>
 
-                      <button type="submit" onClick={getProduct} class="btn btn-primary">Ajouter</button>
+                      <button type="submit" onClick={createProduct} class="btn btn-primary">Ajouter</button>
                       <button onClick={toggleModal}>Close Modal</button>
                     </form>
 

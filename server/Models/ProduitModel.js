@@ -1,5 +1,4 @@
-// const { sequelize, Sequelize } = require(".");
-const {   ARRAY} = require('sequelize');
+
 module.exports = (sequelize, Sequelize) => {
     const produit = sequelize.define('produits', {
         id_produit: {
