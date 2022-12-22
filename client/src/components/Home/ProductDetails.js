@@ -6,7 +6,8 @@ import AvisProduct from './detailsProducts/AvisProduct'
 
 const ProductDetails = () => {
 
-    const [id , setId] = useState(18)
+    const [id , setId] = useState(1)
+    
 
   return (
     <>
@@ -51,7 +52,7 @@ const ProductDetails = () => {
     </div>
     <div className='container '>
     <AvisProduct id={id}/>
-    <CommentaireProduct />
+    <CommentaireProduct id={id} />
     </div>
     </>
   )
