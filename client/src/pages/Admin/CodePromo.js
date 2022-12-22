@@ -18,10 +18,14 @@ const CodePromo = () => {
     return axios.get(URL)
   }
 
-  useEffect(() => {
+  function test_(){
     GetCodePromos().then(response => {
       SetPromoCodes(response.data)
     })
+  }
+
+  useEffect(() => {
+    test_()
   }, [])
 
   const onChange = (e) => {
