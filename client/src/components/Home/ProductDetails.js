@@ -1,11 +1,12 @@
 import React from 'react'
 import CommentaireProduct from './detailsProducts/CommentaireProduct'
 import { useState } from 'react'
+import AvisProduct from './detailsProducts/AvisProduct'
 
 
 const ProductDetails = () => {
 
-    
+    const [id , setId] = useState(18)
 
   return (
     <>
@@ -48,7 +49,10 @@ const ProductDetails = () => {
             </div>
         </div>
     </div>
+    <div className='container '>
+    <AvisProduct id={id}/>
     <CommentaireProduct />
+    </div>
     </>
   )
 }

@@ -40,14 +40,9 @@ const Products = () => {
     }
 
     const paginate = pageNumber => setCurrentProd(pageNumber);
-
-
     const addProdToPanier = () => {
         
     }
-
-
-
     return (
         <>
 
