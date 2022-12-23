@@ -103,7 +103,7 @@ const Products = () => {
                                 </Link>
                                 <div className="flex items-baseline mb-1 space-x-2">
                                     <p className="text-xl text-primary font-semibold">${prod.prix_produit} </p>
-                                    <p className="text-sm text-gray-400 line-through">{prod.promotion_produit == true ? prod.pourcentage_produit : null}</p>
+                                    <p className="text-sm text-gray-400 line-through">${prod.promotion_produit == true ? prod.pourcentage_produit : null}</p>
                                 </div>
                                 <div className="flex items-center">
 

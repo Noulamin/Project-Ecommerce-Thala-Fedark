@@ -51,7 +51,7 @@ const ProductDetails = ({props}) => {
                     </div>
                     <div className="flex items-baseline mb-1 space-x-2 font-roboto mt-4">
                         <p className="text-xl text-primary font-semibold">${product.prix_produit} </p>
-                        <p className="text-base text-gray-400 line-through">{product.promotion_produit == true ? product.pourcentage_produit : null} </p>
+                        <p className="text-base text-gray-400 line-through">${product.promotion_produit == true ? product.pourcentage_produit : null} </p>
                     </div>
                     <p className="mt-4 text-gray-600">{product.description_produit}</p>
                     <div className="mt-4">
