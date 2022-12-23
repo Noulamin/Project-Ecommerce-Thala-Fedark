@@ -4,6 +4,7 @@ import axios from 'axios';
 
 const Categories = () => {
 
+     
     const [categories, setCategories] = useState([]);
 
 
