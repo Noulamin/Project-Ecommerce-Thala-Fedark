@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 import Pagination from './Pagination'
+import Swal from 'sweetalert2'
+
 
 
 
@@ -11,7 +13,6 @@ const Products = () => {
     const [currentProd, setCurrentProd] = useState(1);
     const [prodPerPage, setProdPerPage] = useState(8);
     const [cart, setCart] = useState([]);
-    const [idPr, setIdPr] = useState('');
 
     const indexOfLastProd = currentProd * prodPerPage
     const indexOfFirstProd = indexOfLastProd - prodPerPage
@@ -53,16 +54,19 @@ const Products = () => {
         .then(response => {
             console.log(response.data.data);
             const prod = response.data.data
-           
-            // console.log(Object.keys(prod))
-            // localStorage.setItem('data', JSON.stringify([prod]))
-
-           
             
-            // setCart([...cart, prod])
             cart.push(prod)
             console.log(cart);
             localStorage.setItem('dataKey', JSON.stringify(cart))
+            Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: response.data.message,
+                showConfirmButton: false,
+                timer: 1500
+            })
+          
+            
            
         })
         .catch(err => {
@@ -72,6 +76,11 @@ const Products = () => {
         console.log(error);
        }
     }
+
+
+    
+
+
     return (
         <>
             <div className="container pb-16">

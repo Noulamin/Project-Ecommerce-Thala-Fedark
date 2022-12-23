@@ -1,5 +1,5 @@
 import React from 'react'
-import { useState } from 'react';
+import { useState , useEffect } from 'react';
 import axios from 'axios';
 
 const Categories = () => {
@@ -8,8 +8,8 @@ const Categories = () => {
     const [categories, setCategories] = useState([]);
 
 
-    const categ = () => {
-        const API_URL_CATEGORIES = 'http://localhost:8080/categorie/getAllCategorie'
+        useEffect(() => {
+             const API_URL_CATEGORIES = 'http://localhost:8080/categorie/getAllCategorie'
         try {
             axios.get(API_URL_CATEGORIES).then(res => {
                 setCategories(res.data)
@@ -17,8 +17,9 @@ const Categories = () => {
         } catch (error) {
             console.log(error);
         }
-    }
-
+        }, [])
+       
+    
     return (
         <>
             <div className="container py-16">
