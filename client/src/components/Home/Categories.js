@@ -4,6 +4,7 @@ import axios from 'axios';
 
 const Categories = () => {
 
+     
     const [categories, setCategories] = useState([]);
     const API_URL_CATEGORIES = 'http://localhost:8080/categorie/getAllCategorie'
     try {
@@ -13,6 +14,7 @@ const Categories = () => {
     } catch (error) {
         console.log(error);
     }
+
     return (
         <>
             <div className="container py-16">
