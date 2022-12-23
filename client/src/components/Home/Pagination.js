@@ -11,7 +11,7 @@ const Pagination = ({ prodPerPage, totalProd, paginate}) => {
         <>
             <div className="py-2">
                 <nav className="block">
-                    <ul className="flex pl-0 rounded list-none flex-wrap">
+                    <ul className="flex pl-0 rounded list-none flex-nowrap" >
                         {pageNumber.map(number =>
                             <li key={number}>
                                 <a onClick={() => paginate(number)}  className="first:ml-0 text-xs font-semibold flex w-8 h-8 mx-1 p-0 rounded-full items-center justify-center leading-tight relative border border-solid border-pink-500 text-dark  bg-pink-500" style={{ cursor: 'pointer' }}>

@@ -10,6 +10,8 @@ const Products = () => {
     const [product, setProduct] = useState([]);
     const [currentProd, setCurrentProd] = useState(1);
     const [prodPerPage, setProdPerPage] = useState(8);
+    const [cart, setCart] = useState([]);
+    const [idPr, setIdPr] = useState('');
 
     const indexOfLastProd = currentProd * prodPerPage
     const indexOfFirstProd = indexOfLastProd - prodPerPage
@@ -28,8 +30,6 @@ const Products = () => {
                 .then(res => {
                     console.log(res.data)
                     setProduct(res.data)
-                    
-
                 })
                 .catch(err => {
                     console.log(err);
@@ -40,12 +40,40 @@ const Products = () => {
     }
 
     const paginate = pageNumber => setCurrentProd(pageNumber);
-    const addProdToPanier = () => {
-        
+
+    // for (let i = 0; i < currentProduct.length; i++) {
+    //     console.log(currentProduct[i]);
+    // }
+    
+    // const URL = `http://localhost:8080/product/details/${id}`
+    const hundleClick = async (id_produit) => {
+        // console.log(id_Prod);
+        try {
+        await axios.get(`http://localhost:8080/api/product/details/${id_produit}`)
+        .then(response => {
+            console.log(response.data.data);
+            const prod = response.data.data
+           
+            // console.log(Object.keys(prod))
+            // localStorage.setItem('data', JSON.stringify([prod]))
+
+           
+            
+            // setCart([...cart, prod])
+            cart.push(prod)
+            console.log(cart);
+            localStorage.setItem('dataKey', JSON.stringify(cart))
+           
+        })
+        .catch(err => {
+            console.log(err);
+        })
+       } catch (error) {
+        console.log(error);
+       }
     }
     return (
         <>
-
             <div className="container pb-16">
                 <h2 className="text-2xl font-medium text-gray-800 uppercase mb-6">recomended for you</h2>
                 <div className="grid grid-cols-4 gap-6">
@@ -67,19 +95,19 @@ const Products = () => {
                                 </div>
                             </div>
                             <div className="pt-4 pb-3 px-4">
-                                <Link to="#">
+                                <Link to= {`productDetails/${prod.id_produit}`}>
                                     <h4 className="uppercase font-medium text-xl mb-2 text-gray-800 hover:text-primary transition">{prod.title_produit} </h4>
                                 </Link>
                                 <div className="flex items-baseline mb-1 space-x-2">
                                     <p className="text-xl text-primary font-semibold">${prod.prix_produit} </p>
-                                    <p className="text-sm text-gray-400 line-through">{prod.promotion_produit == true ? prod.pourcentage_produit : null}</p>
+                                    <p className="text-sm text-gray-400 line-through">${prod.promotion_produit == true ? prod.pourcentage_produit : null}</p>
                                 </div>
                                 <div className="flex items-center">
 
                                     <div className="text-xs text-gray-500 ml-3">Stock ({prod.stock_produit}) </div>
                                 </div>
                             </div>
-                            <button className="block w-full py-1 text-center text-white bg-primary border border-primary rounded-b hover:bg-transparent hover:text-primary transition">Add to cart</button>
+                            <button onClick={() => hundleClick(prod.id_produit)} className="block w-full py-1 text-center text-white bg-primary border border-primary rounded-b hover:bg-transparent hover:text-primary transition">Add to cart</button>
                         </div>
                     )}
 
