@@ -2,37 +2,38 @@ import axios from 'axios'
 import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import CommentaireProduct from './detailsProducts/CommentaireProduct'
+import AvisProduct from './detailsProducts/AvisProduct'
 
 
 
 
-const ProductDetails = ({props}) => {
-    
+const ProductDetails = () => {
+
     const [product, setProduct] = useState('');
-    const {id} = useParams()
+    const { id } = useParams()
 
     const handler = () => {
         const url = `http://localhost:8080/api/product/details/${id}`
         console.log(url);
         axios.get(url)
-        .then(res => {
-            console.log(res.data.data);
-            setProduct(res.data.data)
+            .then(res => {
+                console.log(res.data.data);
+                setProduct(res.data.data)
 
-        })
-        .catch(err => {
-            console.log(err);
-        })
+            })
+            .catch(err => {
+                console.log(err);
+            })
     }
 
     useEffect(() => {
-       handler()
+        handler()
     }, []);
 
 
     return (
         <>
-              {/* <button onClick={handler}>button</button>  */}
+            {/* <button onClick={handler}>button</button>  */}
             <div className="container grid grid-cols-2 gap-6" style={{ padding: '2rem' }}>
                 <div>
                     <img src="../assets/images/products/product1.jpg" alt="product" className="w-full" />
@@ -70,10 +71,12 @@ const ProductDetails = ({props}) => {
                     </div>
                 </div>
             </div>
-            
-            <CommentaireProduct />
+
+            <div className='container '>
+                <AvisProduct id={id} />
+                <CommentaireProduct id={id} />
+            </div>
         </>
-        
     )
 }
 

@@ -72,9 +72,6 @@ const Products = () => {
         console.log(error);
        }
     }
-
-
-
     return (
         <>
             <div className="container pb-16">
