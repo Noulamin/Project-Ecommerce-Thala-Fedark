@@ -29,3 +29,24 @@ const asyncHandler = require('express-async-handler')
             console.log(error);
         }
   })
+
+  /**
+ * methode => GET
+ * @Route => commentaire/allcomments/:produitIdProduit
+ * access => private
+ */
+
+  exports.getComments = asyncHandler(async(req,res) => {
+    const produitIdProduit = req.params.produitIdProduit;
+    try {
+         data = await comments.findAll({
+            where : {
+                produitIdProduit : produitIdProduit
+            }
+         })
+         res.json(data)
+            .status(200)
+    } catch (error) {
+        res.status(400)
+    }
+  })

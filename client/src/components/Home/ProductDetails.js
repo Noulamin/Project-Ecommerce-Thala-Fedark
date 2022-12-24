@@ -3,6 +3,8 @@ import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import CommentaireProduct from './detailsProducts/CommentaireProduct'
 import AvisProduct from './detailsProducts/AvisProduct'
+import ShowComments from './detailsProducts/showComments'
+
 
 
 
@@ -75,6 +77,7 @@ const ProductDetails = () => {
             <div className='container '>
                 <AvisProduct id={id} />
                 <CommentaireProduct id={id} />
+                <ShowComments id={id} />
             </div>
         </>
     )
