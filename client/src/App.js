@@ -21,6 +21,7 @@ import NotFound from './pages/NotFound';
 import ProductDetails from './components/Home/ProductDetails';
 import ProductByCategorie from './components/ProductByCategorie';
 import Panier from './components/Home/Panier/Panier';
+import Payment from './components/Home/Panier/Payment';
 
 
 
@@ -44,6 +45,7 @@ function App() {
           <Route path='/productDetails/:id' element={<ProductDetails />} />
           <Route path='/productByCategorie' element={<ProductByCategorie />} />
           <Route path='/panaier' element={<Panier />} />
+          <Route path='/payment' element={<Payment />} />
         </Route>
 
 

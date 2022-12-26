@@ -72,21 +72,6 @@ const CodePromo = () => {
     UpdatePromoClick()
   }
 
-  const UpdateCodePromo = async (id) => {
-
-    const url = 'http://localhost:8080/PromoCode/UpdatePromoCode/' + id
-
-    try {
-      const res = await axios.post(url, formData, { withCredentials: true });
-      GetCodePromos().then(response => {
-        SetPromoCodes(response.data)
-      })
-    } catch (err) {
-      console.log(err.response.data);
-      error = err.response.data
-      setError(err.response.data)
-    }
-  }
 
   const DeleteCodePromo = async (id) => {
     const url = 'http://localhost:8080/PromoCode/DeletePromoCode/' + id
@@ -151,35 +136,6 @@ const CodePromo = () => {
                   </form>
                 </div>
               }
-              {showUpdateModal &&
-                <div className='position-absolute fixed-top w-25 p-3 bg-white border border-dark mx-auto my-5 rounded-2'>
-                  <form>
-                    <p className='text-center'>
-                      Update Code Promo
-                    </p>
-                    <div class="form-group">
-                      <label for="exampleInputEmail1">Code Promo</label>
-                      <input type="text" name='code_promo' value={formData.code_promo} class="form-control rounded-3" placeholder="Enter Code" />
-                    </div>
-                    <div class="form-group">
-                      <label for="exampleInputEmail1">Discount rate</label>
-                      <input type="number" name='pourcentage_promo' value={formData.pourcentage_promo} onChange={onChange} class="form-control rounded-3" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter rate" />
-                    </div>
-                    <div class="form-group">
-                      <label for="exampleInputEmail1">Expiry Date</label>
-                      <input type="date" name='date_expiration' value={formData.date_expiration} onChange={onChange} class="form-control rounded-3" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter date" />
-                    </div>
-                    <div className='w-100 d-flex justify-content-between'>
-                      <button class="btn bg-dark px-3 text-white mt-2 Button_ajoute" onClick={UpdateCodePromo(formData.id_promos)}>Update</button>
-                      <button class="btn bg-dark px-3 text-white mt-2 Button_ajoute" onClick={UpdatePromoClick}>Cancel</button>
-                    </div>
-                    <p className='text-center text-danger'>
-                      {error}
-                    </p>
-                  </form>
-                </div>
-              }
-
             </div>
           </div>
           <div class="table-responsive card p-2">
@@ -189,7 +145,6 @@ const CodePromo = () => {
                   <th scope="col">Code Promo</th>
                   <th scope="col">Discount rate</th>
                   <th scope="col">Expiry Date</th>
-                  <th scope="col">Update</th>
                   <th scope="col">Delete</th>
                 </tr>
               </thead>
@@ -200,13 +155,9 @@ const CodePromo = () => {
                     <td>{data.pourcentage_promo + "%"}</td>
                     <td>{data.date_expiration}</td>
                     <td>
-                      <button class="btn bg-white border border-dark p-1 px-2 text-dark Button_ajoute" onClick={() => SetCodePromoData(data.code_promo, data.pourcentage_promo, data.date_expiration, data.id_promos)}>Update</button>
-                    </td>
-                    <td>
                       <button class="btn bg-dark  p-1 px-2 text-white Button_ajoute" onClick={() => DeleteCodePromo(data.id_promos)} >Delete</button>
                     </td>
                   </tr>
-
                 ))}
               </tbody>
             </table>
