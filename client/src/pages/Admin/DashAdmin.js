@@ -1,6 +1,54 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+import axios from 'axios'
 
 const DashAdmin = () => {
+
+  const [Products, SetProducts] = useState()
+  const [Categories, SetCategories] = useState()
+  const [Comments, SetComments] = useState()
+  const [CodePromos, SetCodePromos] = useState()
+
+
+  const URL_1 = "http://localhost:8080/Product/getAllProduct"
+  function GetProducts() {
+    return axios.get(URL_1)
+  }
+
+  GetProducts().then(response => {
+    SetProducts((response.data).length)
+  })
+
+  //
+  const URL_2 = "http://localhost:8080/categorie/getAllCategorie"
+  function GetCategories() {
+    return axios.get(URL_2)
+  }
+
+  GetCategories().then(response => {
+    SetCategories((response.data).length)
+  })
+
+  //
+  const URL_3 = "http://localhost:8080/commentaire/"
+  function GetComments() {
+    return axios.get(URL_3)
+  }
+
+  GetComments().then(response => {
+    SetComments((response.data).length)
+  })
+
+  //
+  const URL_4 = "http://localhost:8080/promocode"
+  function GetCodePromos() {
+    return axios.get(URL_4)
+  }
+
+  GetCodePromos().then(response => {
+    SetCodePromos((response.data).length)
+  })
+
+
 
   return (
     <>
@@ -16,7 +64,7 @@ const DashAdmin = () => {
                 Products
               </p>
               <p class="num">
-                453
+                {Products}
               </p>
             </div>
             <div class="divs2 card" id="wst1">
@@ -25,25 +73,25 @@ const DashAdmin = () => {
                 Categories
               </p>
               <p class="num">
-                3
+                {Categories}
               </p>
             </div>
             <div class="divs2 card" id="wst2">
               <i class=""></i>
               <p>
-                Comments
+                Code Promos
               </p>
               <p class="num">
-                34
+                {CodePromos}
               </p>
             </div>
             <div class="divs2 card">
               <i class=""></i>
               <p class="">
-                Users
+                Comments
               </p>
               <p class="num">
-                78
+                {Comments}
               </p>
             </div>
           </div>
