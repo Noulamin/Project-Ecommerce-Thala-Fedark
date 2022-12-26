@@ -3,12 +3,15 @@ const express = require('express');
 const db = require('./Models')
 const app = express();
 const coockieparser = require('cookie-parser')
+const bodyParser = require('body-parser')
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use(coockieparser())
 const cors = require('cors');
 app.use(cors({origin: true, credentials: true}));
+app.use(bodyParser.urlencoded({ extended: false }))
+
 
 
 const commentaireRouter = require('./Routes/commentaireRoutes')

@@ -33,7 +33,7 @@ exports.getAllProductToRender = async (req, res) => {
 
 exports.createProduct = async (req, res) => {
   // console.log("body",req.body)
-  console.log("req.files",req.files)
+  // console.log("req.files",req.files)
 
   try {
      const img = [];
@@ -46,6 +46,8 @@ exports.createProduct = async (req, res) => {
    console.log('ggggggggggggggggggg');
    console.log(img)
    console.log('ggggggggggggggggggg');
+
+   
     const data = await Product.create({
       title_produit: req.body.title_produit,
       image_produit: img,
@@ -61,7 +63,7 @@ exports.createProduct = async (req, res) => {
       data: data,
     });
   } catch (err) {
-    console.log(err);
+    throw new Error(err)
   }
 
 };

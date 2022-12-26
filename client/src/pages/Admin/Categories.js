@@ -1,18 +1,103 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+import axios from 'axios'
 import SideBar from '../../components/Admin/SideBar'
 
-const Categories = () => {
-  
-  
+const Catégorie = () => {
 
+  const [showAddModal, setshowAddModal] = useState(false);
+  const [showUpdateModal, setshowUpdateModal] = useState(false);
+  const [formData, setFormData] = useState({  categorie: '', id_categorie: '' })
+  const {categorie,id_categorie } = formData
 
+  let [error, setError] = useState(true)
 
+  const [db, Setdb] = useState([])
 
+  const URL = "http://localhost:8080/categorie/getAllCategorie"
+  function GetCategorie() {
+    return axios.get(URL)
+  }
 
+  function test_(){
+    GetCategorie().then(response => {
+      Setdb(response.data)
+    })
+  }
 
+  useEffect(() => {
+    test_()
+  }, [])
 
+  const onChange = (e) => {
+    setFormData((prevState) => ({
+      ...prevState,
+      [e.target.name]: e.target.value
+    }))
+  }
 
-  
+  const AddCategorieClick = () => {
+    setError(false)
+    setFormData({})
+    setshowAddModal(!showAddModal);
+  }
+
+  const UpdateCategorieClick = () => (
+    setshowUpdateModal(!showUpdateModal)
+  )
+
+  const url = 'http://localhost:8080/categorie/add'
+  const data = { categorie }
+
+  const AddCategorie = async (e) => {
+    e.preventDefault();
+
+    try {
+      const res = await axios.post(url, data, { withCredentials: true });
+      AddCategorieClick();
+      GetCategorie().then(response => {
+        Setdb(response.data)
+      })
+    } catch (err) {
+      console.log(err.response.data);
+      error = err.response.data
+      setError(err.response.data)
+    }
+  }
+
+  const SetCategorieData = async (categorie,id_categorie) => {
+    formData.categorie = categorie
+    formData.id_categorie = id_categorie
+    UpdateCategorieClick()
+  }
+
+  const UpdateCategorie = async (id) => {
+
+    const url = 'http://localhost:8080/categorie/edit/' + id
+
+    try {
+      const res = await axios.put(url, formData, { withCredentials: true });
+      GetCategorie().then(response => {
+        Setdb(response.data)
+      })
+    } catch (err) {
+      console.log(err.response.data);
+      error = err.response.data
+      setError(err.response.data)
+    }
+  }
+
+  const DeleteCatégorie = async (id) => {
+    const url = 'http://localhost:8080/categorie/delete/' + id
+    try {
+      const res = await axios.delete(url, data, { withCredentials: true });
+      GetCategorie().then(response => {
+        Setdb(response.data)
+      })
+    } catch (err) {
+      console.log(err.response.data);
+    }
+  }
+
   return (
     <>
       <SideBar />
@@ -35,140 +120,81 @@ const Categories = () => {
               </div>
             </div>
             <div class="d-flex justify-content-end my-2 px-5 fw-bold">
-              <button class="btn bg-danger px-3 text-blod Button_ajoute" data-bs-toggle="modal" data-bs-target="#send_to">Ajouter</button>
+              <button class="btn bg-danger px-3 text-blod Button_ajoute" onClick={AddCategorieClick}>Ajouter</button>
+              {showAddModal &&
+                <div className='position-absolute fixed-top w-25 p-3 bg-white border border-dark mx-auto my-5 rounded-2'>
+                  <form>
+                    <p className='text-center'>
+                      Add New Categorie
+                    </p>
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">Categorie</label>
+                      <input type="text" name='categorie' onChange={onChange} class="form-control rounded-3" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Catégorie" />
+                    </div>
+                   
+                  
+                    <div className='w-100 d-flex justify-content-between'>
+                      <button class="btn bg-dark px-3 text-white mt-2 Button_ajoute" onClick={AddCategorie}>Add</button>
+                      <button class="btn bg-dark px-3 text-white mt-2 Button_ajoute" onClick={AddCategorieClick}>Cancel</button>
+                    </div>
+                    <p className='text-center text-danger'>
+                      {error}
+                    </p>
+                  </form>
+                </div>
+              }
+              {showUpdateModal &&
+                <div className='position-absolute fixed-top w-25 p-3 bg-white border border-dark mx-auto my-5 rounded-2'>
+                  <form>
+                    <p className='text-center'>
+                      Update Categorie
+                    </p>
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">Categorie</label>
+                      <input type="text" name='Catégorie' value={formData.categorie} class="form-control rounded-3" placeholder="Enter catégorie" />
+                    </div>
+                  
+                    <div className='w-100 d-flex justify-content-between'>
+                      <button class="btn bg-dark px-3 text-white mt-2 Button_ajoute" onClick={UpdateCategorieClick(formData.id_categorie)}>Update</button>
+                      <button class="btn bg-dark px-3 text-white mt-2 Button_ajoute" onClick={UpdateCategorie}>Cancel</button>
+                    </div>
+                    <p className='text-center text-danger'>
+                      {error}
+                    </p>
+                  </form>
+                </div>
+              }
+
             </div>
           </div>
           <div class="table-responsive card p-2">
             <table class="table table-striped Table_responsive">
               <thead>
                 <tr class="rounded tr_table">
-                  <th scope="col">id</th>
-                  <th scope="col">title</th>
-                  <th scope="col">url</th>
-                  <th scope="col">contenu</th>
-                  <th scope="col">delete</th>
-                  <th scope="col">update</th>
+                  <th scope="col">Catégorie</th>
+                  <th scope="col">Update</th>
+                  <th scope="col">Delete</th>
                 </tr>
               </thead>
               <tbody>
-                <tr class="rounded">
-                  <td scope="col"> 45  </td>
-                  <td scope="col"> Ahmed</td>
-                  <td scope="col"> fewwv</td>
-                  <td scope="col"> vwdvwrwv</td>
-                  <td scope="col"> cdscc</td>
-                  <td scope="col"> cdcwdcwc</td>
-                </tr>
+                {db.map(data => (
+                  <tr>
+                    <td>{data.categorie}</td>
+                  
+                    <td>
+                      <button class="btn bg-white border border-dark p-1 px-2 text-dark Button_ajoute" onClick={() => SetCategorieData(data.categorie, data.id_categorie)}>Update</button>
+                    </td>
+                    <td>
+                      <button class="btn bg-dark  p-1 px-2 text-white Button_ajoute" onClick={() => DeleteCatégorie(data.id_categorie)} >Delete</button>
+                    </td>
+                  </tr>
 
-                <tr class="rounded">
-                  <td scope="col"> 45  </td>
-                  <td scope="col"> Ahmed</td>
-                  <td scope="col"> fewwv</td>
-                  <td scope="col"> vwdvwrwv</td>
-                  <td scope="col"> cdscc</td>
-                  <td scope="col"> cdcwdcwc</td>
-                </tr>
-
-                <tr class="rounded">
-                  <td scope="col"> 45  </td>
-                  <td scope="col"> Ahmed</td>
-                  <td scope="col"> fewwv</td>
-                  <td scope="col"> vwdvwrwv</td>
-                  <td scope="col"> cdscc</td>
-                  <td scope="col"> cdcwdcwc</td>
-                </tr>
-
-                <tr class="rounded">
-                  <td scope="col"> 45  </td>
-                  <td scope="col"> Ahmed</td>
-                  <td scope="col"> fewwv</td>
-                  <td scope="col"> vwdvwrwv</td>
-                  <td scope="col"> cdscc</td>
-                  <td scope="col"> cdcwdcwc</td>
-                </tr>
-
-                <tr class="rounded">
-                  <td scope="col"> 45  </td>
-                  <td scope="col"> Ahmed</td>
-                  <td scope="col"> fewwv</td>
-                  <td scope="col"> vwdvwrwv</td>
-                  <td scope="col"> cdscc</td>
-                  <td scope="col"> cdcwdcwc</td>
-                </tr>
-
-                <tr class="rounded">
-                  <td scope="col"> 45  </td>
-                  <td scope="col"> Ahmed</td>
-                  <td scope="col"> fewwv</td>
-                  <td scope="col"> vwdvwrwv</td>
-                  <td scope="col"> cdscc</td>
-                  <td scope="col"> cdcwdcwc</td>
-                </tr>
-
-                <tr class="rounded">
-                  <td scope="col"> 45  </td>
-                  <td scope="col"> Ahmed</td>
-                  <td scope="col"> fewwv</td>
-                  <td scope="col"> vwdvwrwv</td>
-                  <td scope="col"> cdscc</td>
-                  <td scope="col"> cdcwdcwc</td>
-                </tr>
-
-                <tr class="rounded">
-                  <td scope="col"> 45  </td>
-                  <td scope="col"> Ahmed</td>
-                  <td scope="col"> fewwv</td>
-                  <td scope="col"> vwdvwrwv</td>
-                  <td scope="col"> cdscc</td>
-                  <td scope="col"> cdcwdcwc</td>
-                </tr>
-
-                <tr class="rounded">
-                  <td scope="col"> 45  </td>
-                  <td scope="col"> Ahmed</td>
-                  <td scope="col"> fewwv</td>
-                  <td scope="col"> vwdvwrwv</td>
-                  <td scope="col"> cdscc</td>
-                  <td scope="col"> cdcwdcwc</td>
-                </tr>
-                
+                ))}
               </tbody>
             </table>
-          </div>
-        </div>
-        <div class="modal fade" id="send_to" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="staticBackdropLabel">Ajouter</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <p class="d-flex m-0 mt-3 justify-content-center" id="warning"></p>
-              <div class="modal-body">
-                <form action="/articles/createArticle" method="post">
-                  <div class="mb-3">
-                    <label for="amount" class="form-label">title</label>
-                    <input type="text" class="form-control" name="title" />
-                  </div>
-                  <div class="mb-3">
-                    <label for="amount" class="form-label">url</label>
-                    <input type="text" class="form-control" name="url" />
-                  </div>
-                  <div class="mb-3">
-                    <label for="amount" class="form-label">contenu</label>
-                    <input type="text" class="form-control" name="contenu" />
-                  </div>
-                  <select id="recipient_" class="form-control form-control-lg mb-3" name="recipient">
-
-                    <option value="4">best categorie</option>
-                    <option value="4">awesome categorie</option>
-                    <option value="4">others categorie</option>
-
-                  </select>
-                  <button type="submit" class="btn btn-primary">Ajouter</button>
-                </form>
-              </div>
-            </div>
+            <p className='text-center'>
+              {db == "" ? 'No Data.' : ''}
+            </p>
           </div>
         </div>
       </main>
@@ -176,4 +202,4 @@ const Categories = () => {
   )
 }
 
-export default Categories
+export default Catégorie
