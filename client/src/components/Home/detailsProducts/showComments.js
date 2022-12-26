@@ -28,12 +28,12 @@ function ShowComments(props) {
 
   return (
     <>
-    {comments.map(comment => 
+    {comments.map((comment,i) => 
     <div className="w-full flex flex-col text-start md:text-left md:flex-row shadow bg-white mt-3 mb-3 p-3">
        <img src="https://xsgames.co/randomusers/avatar.php?g=male" style={{width: 90, marginRight: 10}} className="rounded-full" alt="Pic For The person who comment " />
         <div className="flex-1 flex flex-col justify-center md:justify-start">
         <p className="font-semibold text-2xl px-4">test</p>
-          <p className="pt-2 px-4" style={{color: '#256D85'}}>{comment.commentaire}</p>
+          <p className="pt-2 px-4" key={i} style={{color: '#256D85'}}>{comment.commentaire}</p>
         </div>
     </div>
     )}
