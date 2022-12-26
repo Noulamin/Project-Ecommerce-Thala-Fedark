@@ -145,6 +145,7 @@ const CodePromo = () => {
                   <th scope="col">Code Promo</th>
                   <th scope="col">Discount rate</th>
                   <th scope="col">Expiry Date</th>
+                  <th scope="col">Update</th>
                   <th scope="col">Delete</th>
                 </tr>
               </thead>

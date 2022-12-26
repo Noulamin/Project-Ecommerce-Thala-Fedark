@@ -12,6 +12,8 @@ router.get('/product/details/:id' ,getProductById)
 
 router.get('/search', searchProduit)
 
+// router.get('/search/:key', searchProduit)
+
 
 
 

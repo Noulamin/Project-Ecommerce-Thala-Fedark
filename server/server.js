@@ -3,12 +3,15 @@ const express = require('express');
 const db = require('./Models')
 const app = express();
 const coockieparser = require('cookie-parser')
+const bodyParser = require('body-parser')
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use(coockieparser())
 const cors = require('cors');
 app.use(cors({origin: true, credentials: true}));
+app.use(bodyParser.urlencoded({ extended: false }))
+
 
 
 const commentaireRouter = require('./Routes/commentaireRoutes')
@@ -23,6 +26,8 @@ const categorieRoutes = require('./Routes/CategoryRoutes')
 const commandRouter = require('./Routes/CommandRouter.js')
 const CodePromoRouter = require('./Routes/CodePromosRoutes')
 const PaymentRoutes = require('./Routes/PaymentRoutes')
+
+app.use(express.static('public'))
 
 app.use('/api/user', clientRouter)
 
@@ -43,7 +48,6 @@ app.use('/Payment', PaymentRoutes)
 app.use('/commentaire' ,commentaireRouter)
 app.use('/api',ProductRoutes)
 app.use('/avis' ,avisRouter)
-app.use(express.static('public'))
 
 
 db.sequelize.sync()
