@@ -12,7 +12,7 @@ const Products = () => {
     const [product, setProduct] = useState([]);
     const [currentProd, setCurrentProd] = useState(1);
     const [prodPerPage, setProdPerPage] = useState(8);
-    const [cart, setCart] = useState([]);
+    const [panier, setPanier] = useState([]);
 
     const indexOfLastProd = currentProd * prodPerPage
     const indexOfFirstProd = indexOfLastProd - prodPerPage
@@ -49,32 +49,32 @@ const Products = () => {
     // const URL = `http://localhost:8080/product/details/${id}`
     const hundleClick = async (id_produit) => {
         // console.log(id_Prod);
-        try {
+      
         await axios.get(`http://localhost:8080/api/product/details/${id_produit}`)
         .then(response => {
             console.log(response.data.data);
             const prod = response.data.data
             
-            cart.push(prod)
-            console.log(cart);
-            localStorage.setItem('dataKey', JSON.stringify(cart))
+            if (panier.indexOf(prod) !== -1) return;
+            setPanier([...panier, prod]);
+            
+            localStorage.setItem('panier', JSON.stringify([...panier, prod]))
             Swal.fire({
                 position: 'center',
                 icon: 'success',
                 title: response.data.message,
                 showConfirmButton: false,
-                timer: 1500
+                timer: 1000
             })
-          
-            
+       
            
         })
         .catch(err => {
             console.log(err);
         })
-       } catch (error) {
-        console.log(error);
-       }
+
+       
+
     }
 
 
