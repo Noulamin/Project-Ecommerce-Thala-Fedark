@@ -8,9 +8,6 @@ const Op = sequelize.Op
 exports.getAllProduct = async (req, res) => {
   try {
   const data = await Product.findAll({});
-
-  console.log(data);
-
   res.send(data).status(200)
 } 
 catch (error) 
@@ -32,25 +29,18 @@ exports.getAllProductToRender = async (req, res) => {
 //creat product :
 
 exports.createProduct = async (req, res) => {
-  // console.log("body",req.body)
-  // console.log("req.files",req.files)
 
+  const image_produit = [];
+  req.files.forEach((filePath) => {
+  const path = filePath.path.split("\\")
+  const imgPath = "/" + path[1] + "/" + path[2];
+  image_produit.push(imgPath);
+  });
+  console.log("hhhhhhhhhhhhhhh"+image_produit)
   try {
-     const img = [];
-   await req.files.forEach((filePath) => {
-   const path = filePath.path.split("\\")
-   const imgPath = "/" + path[1] + "/" + path[2];
-   console.log(imgPath);
-   img.push(imgPath);
-   });
-   console.log('ggggggggggggggggggg');
-   console.log(img)
-   console.log('ggggggggggggggggggg');
-
-   
     const data = await Product.create({
       title_produit: req.body.title_produit,
-      image_produit: img,
+      image_produit: image_produit,
       description_produit: req.body.description_produit,
       prix_produit: req.body.prix_produit,
       stock_produit: req.body.stock_produit,
@@ -63,7 +53,7 @@ exports.createProduct = async (req, res) => {
       data: data,
     });
   } catch (err) {
-    throw new Error(err)
+    console.log(err);
   }
 
 };

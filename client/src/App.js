@@ -18,6 +18,11 @@ import ProfClient from './pages/ProfClient';
 import Layout from './components/Layout';
 import LayoutAdmin from './components/Admin/LayoutAdmin';
 import NotFound from './pages/NotFound';
+import ProductDetails from './components/Home/ProductDetails';
+import ProductByCategorie from './components/ProductByCategorie';
+import Panier from './components/Home/Panier/Panier';
+import Payment from './components/Home/Panier/Payment';
+
 
 
 
@@ -38,7 +43,10 @@ function App() {
           <Route path='/forgetPassword' element={<ForgetPassword />} />
           <Route path='/resetPassword/:token' element={<ResetPassword />} />
           <Route path='/client' element={<ProfClient />} />
-       
+          <Route path='/productDetails/:id' element={<ProductDetails />} />
+          <Route path='/productByCategorie' element={<ProductByCategorie />} />
+          <Route path='/panaier' element={<Panier />} />
+          <Route path='/payment' element={<Payment />} />
         </Route>
 
 

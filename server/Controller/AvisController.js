@@ -4,7 +4,7 @@ const asyncHandler = require('express-async-handler')
 // function POST  commentaire selon l'id du produit : (default en cours)
 /**
  * methode => POST
- * @Route => api/client/avis
+ * @Route => api/client/avis/:id_product
  * access => private
  */
        exports.postAvis  = asyncHandler(async (req,res) => {
@@ -22,6 +22,5 @@ const asyncHandler = require('express-async-handler')
         } catch (error) {
             res.send(error)
             .status(400)
-            console.log(error);
         }
   })

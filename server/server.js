@@ -25,6 +25,7 @@ const ProductRoutes = require("./Routes/ProductRoutes");
 const categorieRoutes = require('./Routes/CategoryRoutes')
 const commandRouter = require('./Routes/CommandRouter.js')
 const CodePromoRouter = require('./Routes/CodePromosRoutes')
+const PaymentRoutes = require('./Routes/PaymentRoutes')
 
 app.use(express.static('public'))
 
@@ -36,14 +37,16 @@ app.use("/categorie", categorieRoutes)
 
 app.use('/api/auth', authRouter)
 
-app.use("/Product", ProductRoutes);
+app.use("/Product", ProductRoutes)
 
 app.use('/api/admin', commandRouter)
 
 app.use('/PromoCode', CodePromoRouter)
 
-app.use('/commentaire' ,commentaireRouter)
+app.use('/Payment', PaymentRoutes)
 
+app.use('/commentaire' ,commentaireRouter)
+app.use('/api',ProductRoutes)
 app.use('/avis' ,avisRouter)
 
 

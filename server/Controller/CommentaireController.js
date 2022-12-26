@@ -12,10 +12,7 @@ const asyncHandler = require('express-async-handler')
             res.json({message: "please add all fields"})
         }
         const idprod = req.params.produitIdProduit
-        console.log(idprod);
         const userId = req.params.userIdUser
-        console.log(userId);
-
         const comment = {
             commentaire : req.body.commentaire,
             produitIdProduit : idprod,
@@ -25,11 +22,31 @@ const asyncHandler = require('express-async-handler')
             await comments.create(comment)
             return res.json({message: 'comment created successfully , thank you !'})
             .status(200)
-            console.log('inserted');
         } catch (error) {
             res.send(error)
             .status(400)
             console.log('not inserted');
             console.log(error);
         }
+  })
+         
+  /**
+ * methode => GET
+ * @Route => commentaire/allcomments/:produitIdProduit
+ * access => private
+ */
+
+  exports.getComments = asyncHandler(async(req,res) => {
+    const produitIdProduit = req.params.produitIdProduit;
+    try {
+         data = await comments.findAll({
+            where : {
+                produitIdProduit : produitIdProduit
+            }
+         })
+         res.json(data)
+            .status(200)
+    } catch (error) {
+        res.status(400)
+    }
   })
