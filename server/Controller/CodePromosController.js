@@ -3,6 +3,17 @@ const asyncHandler = require('express-async-handler')
 
 const CodePromosModel = db.CodePromosModel;
 
+// Get
+const GetAllCodePromos = asyncHandler(async (req, res) => {
+    const result = await CodePromosModel.findAll({});
+    if (result) {
+        res.send(result).status(200).send("Sending date.")
+    } else {
+        res.status(404).send("Something is wrong.")
+    }
+})
+
+// Add
 const AddPromoCode = asyncHandler(async (req, res) => {
     const { code_promo, pourcentage_promo, date_expiration } = req.body;
     if (!code_promo || !pourcentage_promo || !date_expiration) {
@@ -15,36 +26,58 @@ const AddPromoCode = asyncHandler(async (req, res) => {
         date_expiration: date_expiration,
     }
 
-    await CodePromosModel.create(data)
+    console.log(data)
+
+    const result = await CodePromosModel.create(data)
+    if (result) {
+        res.status(200).send("Created successfully.")
+    } else {
+        res.status(404).send("Something is wrong.")
+    }
+
 })
 
+// Update
 const UpdatePromoCode = asyncHandler(async (req, res) => {
-    const { old_code_promo, new_code_promo, new_pourcentage_promo, new_date_expiration } = req.body;
-    if (!old_code_promo || !new_code_promo || !new_pourcentage_promo || !new_date_expiration) {
+    const { code_promo, pourcentage_promo, date_expiration } = req.body;
+    if (!code_promo || !pourcentage_promo || !date_expiration) {
         res.status(400).send('Please fill all fields.')
     }
 
-    await CodePromosModel.update(
+    id_promos = req.params.id
+
+    const result = await CodePromosModel.update(
         {
-            code_promo: new_code_promo,
-            pourcentage_promo: new_pourcentage_promo,
-            date_expiration: new_date_expiration,
+            code_promo: code_promo,
+            pourcentage_promo: pourcentage_promo,
+            date_expiration: date_expiration,
         },
         {
-            where: { code_promo: old_code_promo },
+            where: { id_promos: id_promos },
         }
     );
-})
 
-const DeletePromoCode = asyncHandler(async (req, res) => {
-    const { code_promo } = req.body;
-    if (!code_promo) {
-        res.status(400).send('Needs PromoCode to delete it.')
+    if (result) {
+        res.status(200).send("Updated successfully.")
+    } else {
+        res.status(404).send("Something is wrong.")
     }
-
-    await CodePromosModel.destroy({
-        where: { code_promo: code_promo },
-    });
 })
 
-module.exports = { AddPromoCode, UpdatePromoCode, DeletePromoCode }
+// Delete
+const DeletePromoCode = asyncHandler(async (req, res) => {
+
+    id_promos = req.params.id
+
+    const result = await CodePromosModel.destroy({
+        where: { id_promos: id_promos },
+    });
+
+    if (result) {
+        res.status(200).send("Deleted successfully.")
+    } else {
+        res.status(404).send("Something is wrong.")
+    }
+})
+
+module.exports = { AddPromoCode, UpdatePromoCode, DeletePromoCode, GetAllCodePromos }

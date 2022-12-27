@@ -1,10 +1,11 @@
 const db = require('../Models');
 const bcrypt = require('bcryptjs');
 const crypto = require('crypto');
+const jwt = require('jsonwebtoken')
 const asyncHandler = require('express-async-handler')
 const sendEmail = require('../Utils/sendEmail');
 const genToken = require('../Utils/generateToken');
-// const cookie = require('cookie-parser')
+const cookie = require('cookie-parser')
 
 
 const UserModel = db.UserModel;
@@ -17,38 +18,40 @@ const UserModel = db.UserModel;
  */
 const login = asyncHandler(async (req, res) => {
     const { email, password } = req.body;
-    if (!email || !password) {
-        res.status(400).send('please add all fildes')
-    }
+    if (!email || !password) return res.status(400).send('please add all fildes')
+
 
     const user = await UserModel.findOne({ where: { email } })
+    if (!user) return res.status(400).send('User dose not exist')
     console.log(user)
+
     const compPassword = await bcrypt.compare(password, user.password)
-    const status = user.isVerified
-    console.log(user.isVerified);
-    console.log(compPassword);
+    
 
     if (user && compPassword) {
-        if (status == false) {
-            res.status(400).send('Please verifier email')
+        if (user.Status == false) {
+           return res.status(400).send("your email is not validated")
         }
-
-        console.log(user.id_user);
+        const cookiesExp = new Date(new Date().getTime() + 15 * 60 * 1000);
         const token = genToken(user.id_user)
         console.log(token);
-        res.localStorage.setItem('access-token', token);
-        res.status(200).json({
-            id: user.id_user,
-            first_Name: user.first_Name,
-            last_Name: user.last_Name,
-            email: user.email,
-            phone_number: user.phone_number,
-            city: user.city,
-            adress: user.adress,
-            message: 'user is logened'
+        res.cookie('access_token', token, {
+            expires: cookiesExp
         })
+            .status(200).json({
+                id: user.id_user,
+                first_Name: user.first_Name,
+                last_Name: user.last_Name,
+                email: user.email,
+                phone_number: user.phone_number,
+                city: user.city,
+                adresse: user.adresse,
+                message: 'user is logened',
+                role: user.role
+            })
     } else {
-        throw new Error('wonrg')
+        res.status(400)
+            .send('Opps!! Email or Password is not correct')
     }
 })
 
@@ -58,24 +61,19 @@ const login = asyncHandler(async (req, res) => {
  * access => public
  */
 const register = asyncHandler(async (req, res) => {
-    const { first_Name, last_Name, email, password, password2, phone_number, city, adress } = req.body
+    const { first_Name, last_Name, email, password, phone_number, city, adresse } = req.body
 
-    if (!first_Name || !last_Name || !email || !password || !password2 || !phone_number || !city || !adress) {
+    if (!first_Name || !last_Name || !email || !password || !phone_number || !city || !adresse) {
         res.status(400).send('please add all fields')
-    } else if (password != password2) {
-        res.status(400)
-        throw new Error('password not match')
     }
 
     const emailExist = await UserModel.findOne({ where: { email } })
-
     if (emailExist) {
-        res.status(400)
-        throw new Error('Opps!! Email has been already taken')
+        return res.status(400).send('Opps!! Email has been already taken')
     }
 
     const salt = await bcrypt.genSalt(10)
-    const hashPassword = await await bcrypt.hash(password, salt);
+    const hashPassword = await bcrypt.hash(password, salt);
 
 
     const data = {
@@ -83,10 +81,9 @@ const register = asyncHandler(async (req, res) => {
         last_Name,
         email,
         password: hashPassword,
-        password2: password,
         phone_number,
         city,
-        adress,
+        adresse,
         ValidateToken: crypto.randomBytes(64).toString('hex'),
     }
 
@@ -98,9 +95,12 @@ const register = asyncHandler(async (req, res) => {
 
     if (user) {
         // res.status(201).send('user created successufly')
-        res.status(201).json({ user })
+        res.status(201).json({
+            user,
+            mess: 'User create successfuly Please check your email for validation'
+        })
     } else {
-        throw new Error('samthing is wrong')
+        res.status(400).send('somthing is wrong')
     }
 })
 
@@ -110,19 +110,51 @@ const register = asyncHandler(async (req, res) => {
  * url => api/auth/forgetPassword
  * access => public
  */
-const forgetPassword = (req, res) => {
-    res.status(200).send('this forgetPassword page')
-}
+const forgetPassword = asyncHandler(async (req, res) => {
+    const { email } = req.body
+    if (!email) {
+        res.status(400).send('Please add your Email')
+    }
+    const user = await UserModel.findOne({ where: { email } })
 
+    if (!user) { return res.status(400).send('User dose not exist') }
+
+    const token = genToken(user.id_user)
+    console.log(token);
+
+    const subject = 'Reset Password'
+    const url = `<h2 >Please click Her For validate Your Email <a href="http://localhost:3000/resetPassword/${token}">Reset Your Password</a></h2>`
+    sendEmail(user.email, token, subject, url)
+
+    res.status(200).json({ mess: 'Re-send the password, please check your email' })
+}
+)
 
 /**
  * methode => post
  * url => api/auth/resetPassword
  * access => public
  */
-const resetPassword = (req, res) => {
-    res.status(200).send('this resetPassword page')
-}
+const resetPassword = asyncHandler(async (req, res) => {
+    const { password, password2 } = req.body
+    if (!password || !password2) {
+        res.status(400).send('please Enter New password')
+    } else if (password != password2) {
+        res.status(400).send('Password not match')
+    }
+    const token = req.params.token
+    const salt = await bcrypt.genSalt();
+    const hashPassword = await bcrypt.hash(password, salt)
+
+    const verifierToken = await jwt.verify(token, process.env.JWT_SECRET)
+    console.log(verifierToken);
+    await UserModel.update(
+        { password: hashPassword },
+        { where: { id_user: verifierToken.id } }
+    )
+    res.status(200).json({ mess: 'password has update successfuly' })
+
+})
 
 
 /**
@@ -136,7 +168,7 @@ const verifierEmail = asyncHandler(async (req, res) => {
     const user = await UserModel.findOne({ where: { ValidateToken: token } })
 
     if (user) {
-        user.isVerified = true
+        user.Status = true
         user.ValidateToken = null
         await user.save()
         res.status(201).send('Validation Saccssefuly')
@@ -145,5 +177,28 @@ const verifierEmail = asyncHandler(async (req, res) => {
     }
 })
 
+/**
+ * methode => post
+ * url => api/auth/logout
+ * access => public
+ */
+const logout = asyncHandler(async (req, res) => {
 
-module.exports = { login, register, forgetPassword, resetPassword, verifierEmail } 
+    const token = req.cookies.access_token;
+    console.log(token);
+    if (!token) {
+        const error = new Error("Invalid token");
+        error.status = 400;
+
+    }
+    res.clearCookie("access_token", { httpOnly: true })
+        .localStorage.clear()
+        .status(200).json({
+            success: true,
+        });
+
+
+})
+
+
+module.exports = { login, register, forgetPassword, resetPassword, verifierEmail, logout } 

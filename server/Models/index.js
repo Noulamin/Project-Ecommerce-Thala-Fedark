@@ -49,14 +49,13 @@ db.UserModel.hasMany(db.CommentModel);
 
 // Association between Prod and Command
 db.ProduitModel.belongsToMany(db.CommandModel, {
-  through: "Produit-command",
-  foreignKey: "id_prod",
-  otherKey: "id_command"
+  through: "Produit-command"
+
 });
 db.CommandModel.belongsToMany(db.ProduitModel, {
-  through: "Produit-command",
-  foreignKey: "id_command",
-  otherKey: "id_prod"
+  through: "Produit-command"
 });
 
-module.exports = db
+
+
+module.exports = db;
